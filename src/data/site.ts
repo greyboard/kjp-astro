@@ -37,12 +37,6 @@ export const site = {
   ],
 };
 
-export const nav = [
-  { label: 'Start', href: '/' },
-  { label: 'ADHS / ADS', href: '/diagnose/adhs-ads' },
-  { label: 'Kontakt', href: '/kontakt' },
-];
-
 // Bis die übrigen Seiten gebaut sind, zeigen Links auf die Altseite (vor Go-Live umstellen)
 const OLD = 'https://www.kinder-jugendpsychiater.org';
 

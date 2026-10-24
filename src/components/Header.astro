@@ -38,9 +38,6 @@ const isActive = (g: (typeof megaMenu)[number]) => g.columns.some((c) => c.links
     <!-- Desktop: Mega-Menü -->
     <nav aria-label="Hauptnavigation" class="hidden lg:block">
       <ul class="flex items-center gap-1 rounded-full bg-white/10 p-1 ring-1 ring-white/20 backdrop-blur-md group-data-[scrolled]:bg-transparent group-data-[scrolled]:ring-0">
-        <li>
-          <a href="/" aria-current={path === '/' ? 'page' : undefined} class="nav-pill">Start</a>
-        </li>
         {megaMenu.map((g, i) => (
           <li>
             <button type="button" class:list={['nav-pill mega-trigger', isActive(g) && 'is-active']} aria-expanded="false" aria-controls={`mega-${i}`}>
@@ -136,7 +133,6 @@ const isActive = (g: (typeof megaMenu)[number]) => g.columns.some((c) => c.links
   </div>
   <nav aria-label="Mobile Navigation" class="container-page flex-1 pb-8 pt-4">
     <ul class="border-t border-white/10">
-      <li class="border-b border-white/10"><a href="/" class="block py-5 text-3xl font-medium text-white no-underline">Start</a></li>
       {megaMenu.map((g) => (
         <li class="border-b border-white/10">
           <details class="group/acc">
