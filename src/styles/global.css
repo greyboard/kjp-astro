@@ -1,6 +1,8 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/fraunces';
-@import '@fontsource-variable/nunito-sans';
+/* Schriften wie auf der Bestandsseite: Playfair Display (Text, Überschriften), Great Vibes (Akzente) */
+@import '@fontsource-variable/playfair-display/wght.css';
+@import '@fontsource-variable/playfair-display/wght-italic.css';
+@import '@fontsource/great-vibes/400.css';
 
 /* Farben aus der Logo-Palette (belegt), Ableitungen als Design-Entscheidung */
 @theme {
@@ -13,18 +15,33 @@
   --color-leaf: #acc90b;
   --color-leaf-dark: #5f7006;
 
-  --color-ground: #fffcf6;
+  /* Grund- und Schriftfarben aus der Bestandsseite übernommen */
+  --color-ground: #f9f3ed;
   --color-surface: #ffffff;
-  --color-surface-alt: #f6f8ec;
-  --color-cream: #fff4e3;
-  --color-line: #e8e4da;
-  --color-ink: #2b2a26;
-  --color-muted: #6b675e;
+  --color-sand: #f1e7dc;
+  --color-cream: #fdeedd;
+  --color-line: #e5d9cc;
+  --color-heading: #4c423a;
+  --color-muted: rgba(77, 66, 58, 0.76);
+  --color-ink: #2a231e;
+  --color-night: #2a231e;
 
-  --font-display: 'Fraunces Variable', Georgia, serif;
-  --font-sans: 'Nunito Sans Variable', system-ui, sans-serif;
+  --font-sans: 'Playfair Display Variable', Georgia, serif;
+  --font-serif: 'Great Vibes', cursive;
 
-  --radius-card: 1.5rem;
+  --radius-card: 1.75rem;
+
+  --animate-kenburns: kenburns 24s ease-out both;
+  @keyframes kenburns {
+    from { transform: scale(1.12); }
+    to { transform: scale(1); }
+  }
+  --animate-rise: rise 1s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: none; }
+  }
+  --animate-spin-slow: spin 40s linear infinite;
 }
 
 @layer base {
@@ -32,37 +49,63 @@
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
   }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-  }
   body {
-    @apply bg-ground font-sans text-ink antialiased;
-    font-size: 1.0625rem;
+    @apply bg-ground font-sans text-muted antialiased;
+    font-size: 1.125rem;
     line-height: 1.7;
   }
   h1, h2, h3 {
-    @apply font-display text-ink;
-    font-optical-sizing: auto;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
+    @apply font-sans text-heading;
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.015em;
     text-wrap: balance;
+    font-optical-sizing: auto;
   }
   p { text-wrap: pretty; }
   a { @apply text-orange-deep underline decoration-orange/40 underline-offset-4 transition-colors; }
   a:hover { @apply decoration-orange; }
-  :focus-visible { @apply outline-3 outline-offset-2 outline-orange-dark rounded-sm; }
+  :focus-visible { @apply outline-3 outline-offset-2 outline-orange rounded-sm; }
+  ::selection { @apply bg-amber text-heading; }
 }
 
 @layer components {
-  .container-page { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
-  .eyebrow { @apply text-sm font-bold uppercase tracking-[0.14em] text-leaf-dark; }
+  .container-page { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10; }
+  /* Serif-Akzent in Headlines */
+  /* Schreibschrift-Akzent wie die Bestands-Überschriften */
+  .accent { @apply font-serif font-normal not-italic text-orange-dark; font-size: 1.12em; line-height: 0.9; letter-spacing: 0; }
+  .eyebrow {
+    @apply inline-flex items-center gap-3 font-serif text-[2rem] leading-none text-orange-dark;
+  }
+  .eyebrow::before { content: ''; @apply h-0.5 w-8 rounded-full bg-leaf; }
+  .eyebrow-light { @apply text-amber; }
   .card { @apply rounded-[var(--radius-card)] border border-line bg-surface p-6 sm:p-8; }
+  .grain::after {
+    content: '';
+    @apply pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
   .prose-kjp p + p,
   .prose-kjp ul + p { @apply mt-4; }
   .prose-kjp ul { @apply mt-4 space-y-2; }
   .prose-kjp li { @apply relative pl-6; }
   .prose-kjp li::before {
     content: '';
-    @apply absolute left-0 top-[0.7em] size-2.5 rounded-full bg-amber;
+    @apply absolute left-0 top-[0.65em] size-2.5 rounded-full bg-amber;
   }
+}
+
+/* Scroll-Reveal, nur wenn JS aktiv und Bewegung erlaubt */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.1, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.1, 1);
+    transition-delay: var(--d, 0ms);
+  }
+  .js [data-reveal].is-in { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }

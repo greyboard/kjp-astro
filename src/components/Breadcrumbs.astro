@@ -1,7 +1,7 @@
 ---
 import { site } from '../data/site';
-interface Props { items: { label: string; href?: string }[] }
-const { items } = Astro.props;
+interface Props { items: { label: string; href?: string }[]; light?: boolean }
+const { items, light = false } = Astro.props;
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -13,12 +13,12 @@ const schema = {
   })),
 };
 ---
-<nav aria-label="Brotkrümelnavigation" class="text-sm text-muted">
+<nav aria-label="Brotkrümelnavigation" class:list={['text-sm', light ? 'text-white/70' : 'text-muted']}>
   <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
     {items.map((item, i) => (
       <li class="flex items-center gap-2">
         {i > 0 && <span aria-hidden="true">›</span>}
-        {item.href ? <a href={item.href} class="text-muted">{item.label}</a> : <span aria-current="page">{item.label}</span>}
+        {item.href ? <a href={item.href} class:list={['no-underline hover:underline', light ? 'text-white/80' : 'text-muted']}>{item.label}</a> : <span aria-current="page">{item.label}</span>}
       </li>
     ))}
   </ol>

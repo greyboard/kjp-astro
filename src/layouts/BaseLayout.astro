@@ -9,8 +9,9 @@ interface Props {
   description: string;
   noindex?: boolean;
   schema?: Record<string, unknown>[];
+  solidHeader?: boolean;
 }
-const { title, description, noindex = false, schema = [] } = Astro.props;
+const { title, description, noindex = false, schema = [], solidHeader = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', site.url).href;
 const robots = isDemo || noindex ? 'noindex, nofollow' : 'index, follow';
 const jsonLd = [clinicSchema(), ...schema];
@@ -25,7 +26,8 @@ const jsonLd = [clinicSchema(), ...schema];
     <meta name="robots" content={robots} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#FFFCF6" />
+    <meta name="theme-color" content="#17130F" />
+    <script is:inline>document.documentElement.classList.add('js')</script>
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="de_DE" />
     <meta property="og:site_name" content={site.name} />
@@ -36,13 +38,20 @@ const jsonLd = [clinicSchema(), ...schema];
     {jsonLd.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
   </head>
   <body>
-    {isDemo && (
-      <div class="bg-ink px-4 py-2 text-center text-xs text-ground">Vorschau des Relaunch. Diese Version ist nicht öffentlich und wird nicht indexiert.</div>
-    )}
-    <Header />
-    <main id="inhalt">
+    <Header solid={solidHeader} />
+    <main id="inhalt" class:list={[solidHeader && 'pt-16']}>
       <slot />
     </main>
     <Footer />
+    {isDemo && (
+      <p class="fixed bottom-3 left-3 z-50 rounded-full bg-ink/90 px-3 py-1.5 text-[11px] font-medium text-ground shadow-lg backdrop-blur">Vorschau · noindex</p>
+    )}
+    <script>
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => e.isIntersecting && (e.target.classList.add('is-in'), io.unobserve(e.target))),
+        { rootMargin: '0px 0px -8% 0px' },
+      );
+      document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+    </script>
   </body>
 </html>

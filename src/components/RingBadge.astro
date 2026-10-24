@@ -1,0 +1,15 @@
+---
+// Rotierender Kreistext mit Logo-Ringen, rein dekorativ
+interface Props { text: string; class?: string }
+const { text, class: cls = '' } = Astro.props;
+const id = `ring-${Math.random().toString(36).slice(2, 8)}`;
+---
+<div class:list={['relative grid place-items-center', cls]} aria-hidden="true">
+  <svg viewBox="0 0 200 200" class="absolute inset-0 size-full animate-spin-slow">
+    <defs><path id={id} d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
+    <text class="fill-current text-[15px] font-semibold uppercase tracking-[0.32em]"><textPath href={`#${id}`}>{text}</textPath></text>
+  </svg>
+  <svg viewBox="0 0 120 120" class="size-[52%]">
+    <circle cx="60" cy="60" r="58" fill="#ACC90B" /><circle cx="60" cy="60" r="45" fill="#F5E925" /><circle cx="60" cy="60" r="32" fill="#FCC016" /><circle cx="60" cy="60" r="19" fill="#F07F12" />
+  </svg>
+</div>

@@ -2,7 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Button from '../../components/Button.astro';
-import CircleOrnament from '../../components/CircleOrnament.astro';
+import Hero from '../../components/Hero.astro';
+import { Image } from 'astro:assets';
+import heroImg from '../../assets/img/hero-adhs.jpg';
+import bewegungImg from '../../assets/img/gruppentherapie.jpg';
 import CtaBand from '../../components/CtaBand.astro';
 import Faq from '../../components/Faq.astro';
 import { site } from '../../data/site';
@@ -97,50 +100,48 @@ const pageSchema = {
 ---
 <BaseLayout
   title="ADHS bei Kindern und Jugendlichen: Diagnose und Therapie in Regensburg"
-  description="ADHS und ADS bei Kindern und Jugendlichen: Anzeichen, Diagnostik und multimodale Therapie in der Praxis für Kinder- und Jugendpsychiatrie Regensburg. Jetzt Ersttermin anfragen."
+  description="ADHS und ADS bei Kindern und Jugendlichen: Anzeichen, Diagnostik und multimodale Therapie beim Kinder- und Jugendpsychiater in Regensburg. Jetzt Ersttermin anfragen."
   schema={[pageSchema]}
 >
-  <section class="relative overflow-hidden">
-    <CircleOrnament class="pointer-events-none absolute -right-32 -top-20 hidden size-[28rem] lg:block" faded />
-    <div class="container-page relative pt-10 sm:pt-14">
-      <Breadcrumbs items={[{ label: 'Start', href: '/' }, { label: 'Diagnose', href: `${OLD}/diagnose` }, { label: 'ADHS / ADS' }]} />
-      <div class="mt-6 max-w-3xl">
-        <p class="eyebrow">Diagnose</p>
-        <h1 class="mt-3 text-4xl sm:text-5xl">ADHS und ADS bei Kindern und Jugendlichen</h1>
-        <p class="mt-5 text-lg text-muted">Aufmerksamkeitsdefizit-/Hyperaktivitätsstörung: was dahintersteckt, wie wir sie sorgfältig abklären und wie Ihr Kind im Alltag wieder Halt findet.</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <Button href="/kontakt#anmeldung">Ersttermin anfragen</Button>
-          <Button href="#diagnostik" variant="secondary">So läuft die Diagnostik</Button>
-        </div>
+  <Hero image={heroImg} size="tall" alt="Junge lehnt nachdenklich an einer Holzwand" position="center 30%">
+    <div class="animate-rise"><Breadcrumbs items={[{ label: 'Start', href: '/' }, { label: 'Diagnose', href: `${OLD}/diagnose` }, { label: 'ADHS / ADS' }]} light /></div>
+    <h1 class="mt-6 max-w-5xl animate-rise text-[clamp(2.75rem,7vw,6.5rem)] text-white [animation-delay:120ms]">ADHS und ADS <span class="accent text-amber">bei Kindern und Jugendlichen</span></h1>
+    <div class="mt-8 grid animate-rise gap-8 [animation-delay:240ms] lg:grid-cols-[1fr_auto] lg:items-end">
+      <p class="max-w-xl text-lg text-white/85">Was dahintersteckt, wie wir sorgfältig abklären und wie Ihr Kind im Alltag wieder Halt findet.</p>
+      <div class="flex flex-wrap gap-3">
+        <Button href="/kontakt#anmeldung">Ersttermin anfragen</Button>
+        <Button href="#diagnostik" variant="light">Zur Diagnostik</Button>
       </div>
+    </div>
+  </Hero>
 
-      <aside class="mt-12 max-w-3xl rounded-[var(--radius-card)] border-l-8 border-orange bg-cream p-6 sm:p-8" aria-labelledby="kurz">
-        <h2 id="kurz" class="text-xl">Kurz gesagt</h2>
-        <p class="mt-3">
-          ADHS ist eine der häufigsten psychischen Auffälligkeiten im Kindes- und Jugendalter. Kennzeichen sind
-          Unaufmerksamkeit, Hyperaktivität und Impulsivität, die über längere Zeit und in mehreren Lebensbereichen
-          auftreten. In unserer Praxis in Regensburg klären wir ADHS und ADS ausführlich ab und behandeln multimodal:
-          mit Elternarbeit, Training, Therapie und, nur wenn nötig, einer sorgfältig begleiteten Medikation.
-        </p>
-      </aside>
+  <section class="container-page relative z-10 -mt-12" aria-labelledby="kurz">
+    <div class="grid gap-8 rounded-[2rem] bg-orange p-8 text-night shadow-2xl shadow-night/10 sm:p-12 lg:grid-cols-[0.5fr_1.5fr]">
+      <h2 id="kurz" class="text-4xl text-night sm:text-5xl">Kurz <span class="accent !text-white">gesagt</span></h2>
+      <p class="text-lg text-night sm:text-xl">
+        ADHS ist eine der häufigsten psychischen Auffälligkeiten im Kindes- und Jugendalter. Kennzeichen sind
+        Unaufmerksamkeit, Hyperaktivität und Impulsivität, die über längere Zeit und in mehreren Lebensbereichen
+        auftreten. In unserer Praxis in Regensburg klären wir ADHS und ADS ausführlich ab und behandeln multimodal:
+        mit Elternarbeit, Training, Therapie und, nur wenn nötig, einer sorgfältig begleiteten Medikation.
+      </p>
     </div>
   </section>
 
-  <div class="container-page mt-20 space-y-24">
+  <div class="container-page mt-28 space-y-32">
     <!-- Anzeichen -->
     <section aria-labelledby="anzeichen">
       <div class="max-w-3xl">
-        <h2 id="anzeichen" class="text-3xl sm:text-4xl">Woran man ADHS erkennt</h2>
+        <p class="eyebrow">Anzeichen</p>
+        <h2 id="anzeichen" class="mt-5 text-[clamp(2.25rem,4.8vw,4.25rem)]">Woran man ADHS <span class="accent text-orange-deep">erkennt</span></h2>
         <div class="prose-kjp mt-5 text-muted">
           <p>Die Störung wurde bereits im 19. Jahrhundert beschrieben. Die Diagnosekriterien sind heute in der ICD-11 und im DSM-5 festgelegt. Im Mittelpunkt stehen drei Kernsymptome:</p>
         </div>
       </div>
       <div class="mt-8 grid gap-5 md:grid-cols-3">
         {symptoms.map((s) => (
-          <article class="card">
-            <span class="block h-2 w-14 rounded-full" style={`background:${s.color}`} aria-hidden="true"></span>
-            <h3 class="mt-5 text-2xl">{s.title}</h3>
-            <p class="mt-3 text-muted">{s.text}</p>
+          <article class="rounded-[var(--radius-card)] p-8 text-heading sm:p-10" style={`background:${s.color}`} data-reveal>
+            <h3 class="text-3xl text-night sm:text-4xl">{s.title}</h3>
+            <p class="mt-4 text-night/90">{s.text}</p>
           </article>
         ))}
       </div>
@@ -159,8 +160,8 @@ const pageSchema = {
     </section>
 
     <!-- ADS -->
-    <section aria-labelledby="ads" class="grid gap-8 rounded-[2rem] bg-surface-alt p-8 sm:p-12 lg:grid-cols-[0.8fr_1.2fr]">
-      <h2 id="ads" class="text-3xl sm:text-4xl">ADHS oder ADS?</h2>
+    <section aria-labelledby="ads" class="grid gap-8 rounded-[2rem] bg-sand p-8 sm:p-14 lg:grid-cols-[0.8fr_1.2fr]" data-reveal>
+      <h2 id="ads" class="text-[clamp(2.25rem,4.8vw,4.25rem)]">ADHS <span class="accent text-orange-deep">oder ADS?</span></h2>
       <div class="prose-kjp">
         <p>
           Nicht jedes Kind mit ADHS ist zappelig. Bei der Form ohne ausgeprägte Hyperaktivität, oft ADS genannt, stehen
@@ -178,14 +179,15 @@ const pageSchema = {
     <!-- Diagnostik -->
     <section id="diagnostik" aria-labelledby="h-diagnostik">
       <div class="max-w-3xl">
-        <h2 id="h-diagnostik" class="text-3xl sm:text-4xl">So läuft die Diagnostik bei uns</h2>
+        <p class="eyebrow">Diagnostik</p>
+        <h2 id="h-diagnostik" class="mt-5 text-[clamp(2.25rem,4.8vw,4.25rem)]">So läuft die Diagnostik <span class="accent text-orange-deep">bei uns</span></h2>
         <p class="mt-5 text-muted">Eine gute Diagnose braucht Zeit und mehrere Blickwinkel. Wir nehmen das Kind als Ganzes in den Blick, nicht nur einzelne Symptome.</p>
       </div>
-      <ol class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+      <ol class="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-5">
         {diagnostics.map((d, i) => (
-          <li class="card p-6 sm:p-6">
-            <span class="font-display text-4xl font-semibold text-orange-deep" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-            <h3 class="mt-3 text-lg">{d.title}</h3>
+          <li class="relative border-t-2 border-ink pt-6" data-reveal>
+            <span class="accent text-6xl leading-none text-orange" aria-hidden="true">{i + 1}</span>
+            <h3 class="mt-4 text-xl">{d.title}</h3>
             <p class="mt-2 text-sm text-muted">{d.text}</p>
           </li>
         ))}
@@ -196,14 +198,15 @@ const pageSchema = {
     <!-- Behandlung -->
     <section aria-labelledby="behandlung" class="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
       <div>
-        <h2 id="behandlung" class="text-3xl sm:text-4xl">Behandlung: mehr als die Frage nach Medikamenten</h2>
+        <p class="eyebrow">Behandlung</p>
+        <h2 id="behandlung" class="mt-5 text-[clamp(2.25rem,4.8vw,4.25rem)]">Mehr als die Frage <span class="accent text-orange-deep">nach Medikamenten</span></h2>
         <div class="prose-kjp mt-5">
           <p>
             Wir klären sorgfältig, beobachten gemeinsam und verbinden medizinisches Wissen mit psychologischer Erfahrung.
             Oft reichen bereits Struktur, Beratung oder Therapie. Manchmal braucht es zusätzlich eine medikamentöse
             Unterstützung.
           </p>
-          <h3 class="!mt-8 text-xl">Wenn Medikamente sinnvoll sind</h3>
+          <h3 class="!mt-10 text-2xl">Wenn Medikamente sinnvoll sind</h3>
           <ul>
             <li>Wir beginnen grundsätzlich niedrig dosiert und prüfen Wirkung und Nebenwirkungen sehr aufmerksam.</li>
             <li>Die Medikation wird meist nur an Schultagen eingesetzt.</li>
@@ -217,9 +220,9 @@ const pageSchema = {
           </p>
         </div>
       </div>
-      <aside class="card self-start bg-cream" aria-labelledby="angebote">
-        <h3 id="angebote" class="text-xl">Unsere Angebote bei ADHS</h3>
-        <p class="mt-2 text-sm text-muted">Orientiert am Protokoll des zentralen ADHS-Netzes</p>
+      <aside class="self-start rounded-[2rem] bg-night p-8 text-white sm:p-10 lg:sticky lg:top-28" aria-labelledby="angebote">
+        <h3 id="angebote" class="text-2xl text-white">Unsere Angebote <span class="accent text-amber">bei ADHS</span></h3>
+        <p class="mt-2 text-sm text-white/60">Orientiert am Protokoll des zentralen ADHS-Netzes</p>
         <ul class="prose-kjp mt-4">
           {programs.map((p) => <li>{p}</li>)}
         </ul>
@@ -229,12 +232,12 @@ const pageSchema = {
     <!-- Netzwerk und Forschung -->
     <section aria-labelledby="netzwerk" class="grid gap-5 md:grid-cols-2">
       <h2 id="netzwerk" class="sr-only">Netzwerk und Forschung</h2>
-      <article class="card">
+      <article class="card" data-reveal>
         <p class="eyebrow">Netzwerk</p>
         <h3 class="mt-3 text-2xl">ADHS-Netzwerk Oberpfalz</h3>
         <p class="mt-3 text-muted">Wir sind als regionales Netz des Bereichs Oberpfalz im <a href="https://www.zentrales-adhs-netz.de" rel="noopener" target="_blank">zentralen ADHS-Netz</a> anerkannt. Regionale Netze sind interdisziplinär organisierte Versorgungsnetze für Menschen mit ADHS.</p>
       </article>
-      <article class="card">
+      <article class="card" data-reveal>
         <p class="eyebrow">Forschung</p>
         <h3 class="mt-3 text-2xl">Studie mit der Universität Regensburg</h3>
         <p class="mt-3 text-muted">Gemeinsam mit dem Institut für Sportwissenschaft der Universität Regensburg haben wir untersucht, wie Bewegung und Motorik mit den kognitiven Fähigkeiten von Kindern mit ADHS zusammenhängen. Die Tests fanden in unseren Praxisräumen statt.</p>
@@ -242,12 +245,14 @@ const pageSchema = {
     </section>
 
     <!-- Aus der Praxis -->
-    <section aria-labelledby="geschichte" class="relative overflow-hidden rounded-[2rem] bg-ink p-8 text-ground sm:p-12">
-      <div class="max-w-2xl">
-        <p class="eyebrow !text-leaf">Aus der Praxis</p>
-        <h2 id="geschichte" class="mt-3 text-3xl text-ground">Lukas: Wenn Energie ihren Platz sucht</h2>
-        <p class="mt-4 text-ground/85">Ein lebendiger Junge lernt, seine Kraft zu lenken. Aus Unruhe wird Bewegung, aus Bewegung wächst Richtung und Vertrauen in das eigene Können.</p>
-        <a href={`${OLD}/fallbeispiele/lukas-wenn-energie-ihren-platz-sucht`} class="mt-6 inline-block font-bold text-amber">Geschichte lesen →</a>
+    <section aria-labelledby="geschichte" class="grain relative isolate overflow-hidden rounded-[2.5rem] bg-night text-white">
+      <Image src={bewegungImg} alt="" widths={[640, 1280]} sizes="100vw" class="absolute inset-0 -z-10 size-full object-cover opacity-60" />
+      <div class="absolute inset-0 -z-10 bg-gradient-to-r from-night via-night/70 to-transparent"></div>
+      <div class="max-w-2xl p-8 py-20 sm:p-16" data-reveal>
+        <p class="eyebrow eyebrow-light">Aus der Praxis</p>
+        <h2 id="geschichte" class="mt-5 text-4xl text-white sm:text-5xl">Lukas: <span class="accent text-amber">Wenn Energie ihren Platz sucht</span></h2>
+        <p class="mt-5 text-lg text-white/80">Ein lebendiger Junge lernt, seine Kraft zu lenken. Aus Unruhe wird Bewegung, aus Bewegung wächst Richtung und Vertrauen in das eigene Können.</p>
+        <div class="mt-8"><Button href={`${OLD}/fallbeispiele/lukas-wenn-energie-ihren-platz-sucht`} variant="light">Geschichte lesen</Button></div>
       </div>
     </section>
 

@@ -1,0 +1,36 @@
+---
+// Vollflächiger Hero mit Foto. Das Bild ist das LCP-Element und lädt priorisiert.
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  image: ImageMetadata;
+  alt?: string;
+  eyebrow?: string;
+  size?: 'full' | 'tall';
+  position?: string;
+}
+const { image, alt = '', eyebrow, size = 'full', position = 'center' } = Astro.props;
+---
+<section class:list={['grain relative isolate flex overflow-hidden bg-night text-white', size === 'full' ? 'min-h-[100svh]' : 'min-h-[82svh]']}>
+  <div class="absolute inset-0 -z-10">
+    <Picture
+      src={image}
+      alt={alt}
+      widths={[640, 960, 1280, 1920]}
+      sizes="100vw"
+      formats={['avif', 'webp']}
+      loading="eager"
+      fetchpriority="high"
+      class="size-full animate-kenburns object-cover"
+      style={`object-position:${position}`}
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-night/95 via-night/35 to-night/40"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-night/70 via-night/10 to-transparent"></div>
+  </div>
+  <div class="container-page flex w-full flex-col justify-end pb-14 pt-32 sm:pb-20">
+    {eyebrow && <p class="eyebrow eyebrow-light animate-rise">{eyebrow}</p>}
+    <slot />
+  </div>
+  <slot name="aside" />
+</section>

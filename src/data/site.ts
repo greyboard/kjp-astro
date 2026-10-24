@@ -5,7 +5,7 @@ export const site = {
   name: 'Praxis Manfred Estrada Aguila & Dr. Christina Islinger',
   shortName: 'Estrada Aguila & Dr. Islinger',
   formerName: 'Praxis Manfred Wurstner',
-  tagline: 'Fachärzte für Kinder- und Jugendpsychiatrie und Psychotherapie',
+  tagline: 'Kinder- und Jugendpsychiater mit interdisziplinärem Team',
   since: 2004,
   doctors: ['Manfred Estrada Aguila', 'Dr. med. Christina Islinger'],
   address: {

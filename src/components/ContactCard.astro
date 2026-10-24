@@ -3,22 +3,24 @@ import { site } from '../data/site';
 interface Props { class?: string; headingLevel?: 'h2' | 'h3' }
 const { class: cls = '', headingLevel: H = 'h3' } = Astro.props;
 ---
-<div class:list={['card grid gap-6 sm:grid-cols-2', cls]}>
-  <div>
-    <H class="text-xl">So erreichen Sie uns</H>
-    <ul class="mt-4 space-y-3">
-      <li><span class="block text-sm text-muted">Telefon</span><a href={site.phone.href} class="text-lg font-bold">{site.phone.display}</a></li>
-      <li><span class="block text-sm text-muted">E-Mail</span><a href={`mailto:${site.email}`} class="break-all">{site.email}</a></li>
-      <li><span class="block text-sm text-muted">Adresse</span>{site.address.street}, {site.address.zip} {site.address.city}<br /><a href={site.mapsUrl} rel="noopener" target="_blank" class="text-sm">Route in Google Maps öffnen</a></li>
-    </ul>
+<div class:list={['grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-line ring-1 ring-line sm:grid-cols-3', cls]}>
+  <div class="bg-surface p-7">
+    <H class="text-xs font-semibold uppercase tracking-[0.22em] text-orange-deep">Telefon</H>
+    <a href={site.phone.href} class="mt-3 block text-3xl font-semibold tracking-tight text-heading no-underline">{site.phone.display}</a>
+    <p class="mt-2 text-sm text-muted">{site.phoneHours}</p>
+    <a href={`mailto:${site.email}`} class="mt-4 block break-all text-sm">{site.email}</a>
   </div>
-  <div>
-    <H class="text-xl">Öffnungszeiten</H>
-    <dl class="mt-4 space-y-2">
+  <div class="bg-surface p-7">
+    <H class="text-xs font-semibold uppercase tracking-[0.22em] text-orange-deep">Praxiszeiten</H>
+    <dl class="mt-3 space-y-3">
       {site.openingHours.map((h) => (
-        <div><dt class="text-sm text-muted">{h.label}</dt><dd class="font-semibold">{h.time}</dd></div>
+        <div><dt class="text-sm text-muted">{h.label}</dt><dd class="text-lg font-semibold">{h.time}</dd></div>
       ))}
     </dl>
-    <p class="mt-4 rounded-2xl bg-surface-alt p-4 text-sm"><strong>Telefonisch erreichbar:</strong><br />{site.phoneHours}</p>
+  </div>
+  <div class="bg-surface p-7">
+    <H class="text-xs font-semibold uppercase tracking-[0.22em] text-orange-deep">Adresse</H>
+    <p class="mt-3 text-lg font-semibold leading-snug">{site.address.street}<br />{site.address.zip} {site.address.city}</p>
+    <a href={site.mapsUrl} rel="noopener" target="_blank" class="mt-4 inline-block text-sm">Route in Google Maps öffnen</a>
   </div>
 </div>

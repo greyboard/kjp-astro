@@ -3,14 +3,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import LogoMark from '../components/LogoMark.astro';
 ---
-<BaseLayout title="Seite nicht gefunden" description="Diese Seite gibt es leider nicht." noindex>
+<BaseLayout title="Seite nicht gefunden" description="Diese Seite gibt es leider nicht." noindex solidHeader>
   <section class="container-page flex flex-col items-center py-24 text-center">
     <LogoMark class="size-28" />
-    <h1 class="mt-8 text-4xl">Diese Seite haben wir nicht gefunden</h1>
+    <h1 class="mt-8 text-[clamp(2.5rem,5vw,4rem)]">Diese Seite haben wir nicht gefunden</h1>
     <p class="mt-4 max-w-md text-muted">Vielleicht hat sich die Adresse geändert. Von der Startseite aus finden Sie alles Wichtige.</p>
     <div class="mt-8 flex flex-wrap justify-center gap-3">
       <Button href="/">Zur Startseite</Button>
-      <Button href="/kontakt" variant="secondary">Kontakt</Button>
+      <Button href="/kontakt" variant="outline">Kontakt</Button>
     </div>
   </section>
 </BaseLayout>
