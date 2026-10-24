@@ -73,7 +73,7 @@ const stories = [
 >
   <Hero image={heroImg} eyebrow={`Sozialpsychiatrische Praxis seit ${site.since}`} position="70% center">
     <h1 class="mt-6 max-w-5xl animate-rise text-[clamp(2.75rem,8vw,7.5rem)] text-white [animation-delay:120ms]">
-      Ihr Kinder- und Jugend&shy;psychiater <span class="accent text-amber">in Regensburg</span>
+      Ihr Kinder- und Jugend&shy;psychiater <span class="accent text-orange">in Regensburg</span>
     </h1>
     <div class="mt-10 grid animate-rise gap-10 [animation-delay:260ms] lg:grid-cols-[1fr_auto] lg:items-end">
       <div>
@@ -126,13 +126,13 @@ const stories = [
       {audiences.map((a, i) => (
         <li data-reveal style={`--d:${i * 100}ms`}>
           <a href={a.href} class="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] bg-surface p-8 no-underline shadow-[0_1px_0_#e5d9cc] ring-1 ring-line transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-10">
-            <span class="absolute inset-x-0 top-0 h-1.5" style={`background:${['#F07F12', '#ACC90B', '#FCC016'][i]}`} aria-hidden="true"></span>
+            <span class="absolute inset-x-0 top-0 h-1.5" style={`background:${['#F07F12', '#ACC90B', '#4C423A'][i]}`} aria-hidden="true"></span>
             <span class="font-serif text-3xl leading-none text-orange-dark">Für</span>
             <span class="mt-1 text-3xl font-medium text-heading">{a.title}</span>
             <span class="mt-4 text-muted">{a.text}</span>
             <span class="mt-8 inline-flex items-center gap-3 font-semibold text-heading">
               {a.cta}
-              <span class="grid size-9 place-items-center rounded-full text-night transition duration-300 group-hover:translate-x-1" style={`background:${['#F07F12', '#ACC90B', '#FCC016'][i]}`} aria-hidden="true">→</span>
+              <span class="grid size-9 place-items-center rounded-full transition duration-300 group-hover:translate-x-1" style={`background:${['#F07F12', '#ACC90B', '#4C423A'][i]};color:${['#2A231E', '#2A231E', '#FFFFFF'][i]}`} aria-hidden="true">→</span>
             </span>
           </a>
         </li>
@@ -148,7 +148,7 @@ const stories = [
       <div class="flex flex-wrap items-end justify-between gap-8" data-reveal>
         <div>
           <p class="eyebrow eyebrow-light">Diagnose</p>
-          <h2 id="krankheitsbilder" class="mt-6 text-[clamp(2.25rem,5vw,4.5rem)] text-white">Wobei wir <span class="accent text-amber">helfen</span></h2>
+          <h2 id="krankheitsbilder" class="mt-6 text-[clamp(2.25rem,5vw,4.5rem)] text-white">Wobei wir <span class="accent text-orange">helfen</span></h2>
         </div>
         <p class="max-w-md text-white/70">Diese Themen begegnen uns im Praxisalltag besonders häufig. Am Anfang steht immer eine sorgfältige Abklärung.</p>
       </div>
@@ -157,7 +157,7 @@ const stories = [
           <li class="border-b border-white/15" data-reveal style={`--d:${(i % 2) * 80}ms`}>
             <a href={c.href} class="group flex items-center gap-6 py-6 text-white no-underline">
               <span class="w-8 text-sm tabular-nums text-white/40">{String(i + 1).padStart(2, '0')}</span>
-              <span class:list={['flex-1 text-xl font-medium tracking-tight transition duration-300 group-hover:translate-x-2 sm:text-2xl', c.featured && 'text-amber']}>{c.label}</span>
+              <span class:list={['flex-1 text-xl font-medium tracking-tight transition duration-300 group-hover:translate-x-2 sm:text-2xl', c.featured && 'text-orange']}>{c.label}</span>
               <span class="grid size-10 shrink-0 place-items-center rounded-full ring-1 ring-white/25 transition duration-300 group-hover:bg-orange group-hover:text-night group-hover:ring-orange" aria-hidden="true">→</span>
             </a>
           </li>
@@ -231,7 +231,7 @@ const stories = [
           <dt class="mt-2 text-sm font-medium">Team aus Ärzten, Psychologen und Pädagogen</dt>
           <dd class="text-6xl font-semibold tracking-[-0.05em]">1</dd>
         </div>
-        <div class="flex flex-col-reverse justify-end rounded-[var(--radius-card)] bg-amber p-8 text-night" data-reveal style="--d:200ms">
+        <div class="flex flex-col-reverse justify-end rounded-[var(--radius-card)] bg-heading p-8 text-white" data-reveal style="--d:200ms">
           <dt class="mt-2 text-sm font-medium">Therapieangebote unter einem Dach</dt>
           <dd class="text-6xl font-semibold tracking-[-0.05em]">6</dd>
         </div>

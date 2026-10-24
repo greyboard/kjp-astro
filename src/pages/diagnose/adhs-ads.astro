@@ -21,16 +21,19 @@ const symptoms = [
     title: 'Unaufmerksamkeit',
     text: 'Schwierigkeiten, bei einer Sache zu bleiben, leichte Ablenkbarkeit, Flüchtigkeitsfehler, Dinge werden begonnen und nicht beendet.',
     color: '#F07F12',
+    fg: '#2A231E',
   },
   {
     title: 'Hyperaktivität',
     text: 'Ausgeprägte motorische Unruhe, besonders dann, wenn eigentlich Ruhe gefragt ist, etwa im Unterricht oder beim Essen.',
-    color: '#FCC016',
+    color: '#ACC90B',
+    fg: '#2A231E',
   },
   {
     title: 'Impulsivität',
     text: 'Vorschnelles, unüberlegtes Handeln, geringe Frustrationstoleranz, Schwierigkeiten zu warten oder andere ausreden zu lassen.',
-    color: '#ACC90B',
+    color: '#4C423A',
+    fg: '#FFFFFF',
   },
 ];
 
@@ -105,7 +108,7 @@ const pageSchema = {
 >
   <Hero image={heroImg} size="tall" alt="Junge lehnt nachdenklich an einer Holzwand" position="center 30%">
     <div class="animate-rise"><Breadcrumbs items={[{ label: 'Start', href: '/' }, { label: 'Diagnose', href: `${OLD}/diagnose` }, { label: 'ADHS / ADS' }]} light /></div>
-    <h1 class="mt-6 max-w-5xl animate-rise text-[clamp(2.75rem,7vw,6.5rem)] text-white [animation-delay:120ms]">ADHS und ADS <span class="accent text-amber">bei Kindern und Jugendlichen</span></h1>
+    <h1 class="mt-6 max-w-5xl animate-rise text-[clamp(2.75rem,7vw,6.5rem)] text-white [animation-delay:120ms]">ADHS und ADS <span class="accent text-orange">bei Kindern und Jugendlichen</span></h1>
     <div class="mt-8 grid animate-rise gap-8 [animation-delay:240ms] lg:grid-cols-[1fr_auto] lg:items-end">
       <p class="max-w-xl text-lg text-white/85">Was dahintersteckt, wie wir sorgfältig abklären und wie Ihr Kind im Alltag wieder Halt findet.</p>
       <div class="flex flex-wrap gap-3">
@@ -139,9 +142,9 @@ const pageSchema = {
       </div>
       <div class="mt-8 grid gap-5 md:grid-cols-3">
         {symptoms.map((s) => (
-          <article class="rounded-[var(--radius-card)] p-8 text-heading sm:p-10" style={`background:${s.color}`} data-reveal>
-            <h3 class="text-3xl text-night sm:text-4xl">{s.title}</h3>
-            <p class="mt-4 text-night/90">{s.text}</p>
+          <article class="rounded-[var(--radius-card)] p-8 text-heading sm:p-10" style={`background:${s.color};color:${s.fg}`} data-reveal>
+            <h3 class="text-3xl text-current sm:text-4xl">{s.title}</h3>
+            <p class="mt-4 opacity-90">{s.text}</p>
           </article>
         ))}
       </div>
@@ -221,7 +224,7 @@ const pageSchema = {
         </div>
       </div>
       <aside class="self-start rounded-[2rem] bg-night p-8 text-white sm:p-10 lg:sticky lg:top-28" aria-labelledby="angebote">
-        <h3 id="angebote" class="text-2xl text-white">Unsere Angebote <span class="accent text-amber">bei ADHS</span></h3>
+        <h3 id="angebote" class="text-2xl text-white">Unsere Angebote <span class="accent text-orange">bei ADHS</span></h3>
         <p class="mt-2 text-sm text-white/60">Orientiert am Protokoll des zentralen ADHS-Netzes</p>
         <ul class="prose-kjp mt-4">
           {programs.map((p) => <li>{p}</li>)}
@@ -250,7 +253,7 @@ const pageSchema = {
       <div class="absolute inset-0 -z-10 bg-gradient-to-r from-night via-night/70 to-transparent"></div>
       <div class="max-w-2xl p-8 py-20 sm:p-16" data-reveal>
         <p class="eyebrow eyebrow-light">Aus der Praxis</p>
-        <h2 id="geschichte" class="mt-5 text-4xl text-white sm:text-5xl">Lukas: <span class="accent text-amber">Wenn Energie ihren Platz sucht</span></h2>
+        <h2 id="geschichte" class="mt-5 text-4xl text-white sm:text-5xl">Lukas: <span class="accent text-orange">Wenn Energie ihren Platz sucht</span></h2>
         <p class="mt-5 text-lg text-white/80">Ein lebendiger Junge lernt, seine Kraft zu lenken. Aus Unruhe wird Bewegung, aus Bewegung wächst Richtung und Vertrauen in das eigene Können.</p>
         <div class="mt-8"><Button href={`${OLD}/fallbeispiele/lukas-wenn-energie-ihren-platz-sucht`} variant="light">Geschichte lesen</Button></div>
       </div>

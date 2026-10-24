@@ -4,14 +4,12 @@
 @import '@fontsource-variable/playfair-display/wght-italic.css';
 @import '@fontsource/great-vibes/400.css';
 
-/* Farben aus der Logo-Palette (belegt), Ableitungen als Design-Entscheidung */
+/* Drei Farben: Orange und Grün aus dem Logo, Braun aus der Bestandsseite. Abstufungen nur als Tonwerte. */
 @theme {
   --color-orange: #f07f12;
   --color-orange-dark: #c9650a;
   --color-orange-deep: #a3500a;
   --color-orange-light: #f59a44;
-  --color-amber: #fcc016;
-  --color-sun: #f5e925;
   --color-leaf: #acc90b;
   --color-leaf-dark: #5f7006;
 
@@ -66,7 +64,7 @@
   a { @apply text-orange-deep underline decoration-orange/40 underline-offset-4 transition-colors; }
   a:hover { @apply decoration-orange; }
   :focus-visible { @apply outline-3 outline-offset-2 outline-orange rounded-sm; }
-  ::selection { @apply bg-amber text-heading; }
+  ::selection { @apply bg-orange text-night; }
 }
 
 @layer components {
@@ -78,7 +76,7 @@
     @apply inline-flex items-center gap-3 font-serif text-[2rem] leading-none text-orange-dark;
   }
   .eyebrow::before { content: ''; @apply h-0.5 w-8 rounded-full bg-leaf; }
-  .eyebrow-light { @apply text-amber; }
+  .eyebrow-light { @apply text-orange; }
   .card { @apply rounded-[var(--radius-card)] border border-line bg-surface p-6 sm:p-8; }
   .grain::after {
     content: '';
@@ -91,7 +89,7 @@
   .prose-kjp li { @apply relative pl-6; }
   .prose-kjp li::before {
     content: '';
-    @apply absolute left-0 top-[0.65em] size-2.5 rounded-full bg-amber;
+    @apply absolute left-0 top-[0.65em] size-2.5 rounded-full bg-orange;
   }
 }
 

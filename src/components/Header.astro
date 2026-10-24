@@ -15,7 +15,7 @@ const features = {
   therapie: { img: therapieImg, kicker: 'Ihr Weg zu uns', title: 'So läuft es ab', text: 'Von der Anmeldung über die Diagnostik bis zum gemeinsamen Therapieplan.', href: '/#ablauf' },
   praxis: { img: praxisImg, kicker: 'Für Jugendliche', title: 'Lass uns mal reden', text: 'Du kannst dich auch selbst bei uns melden. Vertraulich und ohne Druck.', href: '/kontakt#jugendliche' },
 };
-const accents = ['#F07F12', '#ACC90B', '#FCC016'];
+const accents = ['#F07F12', '#ACC90B', '#4C423A'];
 const isActive = (g: (typeof megaMenu)[number]) => g.columns.some((c) => c.links.some((l) => l.href === path));
 ---
 <a href="#inhalt" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-night focus:px-4 focus:py-2 focus:text-ground">Zum Inhalt springen</a>
@@ -54,7 +54,7 @@ const isActive = (g: (typeof megaMenu)[number]) => g.columns.some((c) => c.links
 
     <div class="relative z-10 flex items-center gap-2">
       <a href={site.phone.href} class="hidden px-3 py-2 font-medium text-white no-underline xl:inline-flex group-data-[scrolled]:text-heading">{site.phone.display}</a>
-      <a href="/kontakt#anmeldung" class="hidden min-h-11 items-center rounded-full bg-orange px-5 font-semibold text-night no-underline transition hover:bg-amber sm:inline-flex">Termin anfragen</a>
+      <a href="/kontakt#anmeldung" class="hidden min-h-11 items-center rounded-full bg-orange px-5 font-semibold text-night no-underline transition hover:bg-orange-light sm:inline-flex">Termin anfragen</a>
       <button id="mobile-open" type="button" class="grid size-11 place-items-center rounded-full bg-white/15 text-white ring-1 ring-white/30 backdrop-blur lg:hidden group-data-[scrolled]:bg-sand group-data-[scrolled]:text-heading group-data-[scrolled]:ring-0" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menü öffnen">
         <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16" /></svg>
       </button>
@@ -103,7 +103,7 @@ const isActive = (g: (typeof megaMenu)[number]) => g.columns.some((c) => c.links
               <a href={f.href} class="group/feat relative isolate flex flex-col justify-end overflow-hidden bg-night p-8 text-white no-underline">
                 <Image src={f.img} alt="" widths={[320, 640]} sizes="20rem" loading="lazy" class="absolute inset-0 -z-10 size-full object-cover opacity-75 transition duration-700 group-hover/feat:scale-105" />
                 <span class="absolute inset-0 -z-10 bg-gradient-to-t from-night via-night/50 to-transparent" aria-hidden="true"></span>
-                <span class="font-serif text-2xl text-amber">{f.kicker}</span>
+                <span class="font-serif text-2xl text-orange">{f.kicker}</span>
                 <span class="mt-1 text-2xl font-medium text-white">{f.title}</span>
                 <span class="mt-2 text-sm text-white/80">{f.text}</span>
                 <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">Mehr erfahren <span class="grid size-8 place-items-center rounded-full bg-orange text-night transition group-hover/feat:translate-x-1">→</span></span>
@@ -145,7 +145,7 @@ const isActive = (g: (typeof megaMenu)[number]) => g.columns.some((c) => c.links
                 <div>
                   <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/50"><span class="size-2 rounded-full" style={`background:${accents[ci % 3]}`}></span>{c.title}</p>
                   <ul class="mt-2">
-                    {c.links.map((l) => <li><a href={l.href} class="block py-2 text-lg text-white/90 no-underline hover:text-amber">{l.label}</a></li>)}
+                    {c.links.map((l) => <li><a href={l.href} class="block py-2 text-lg text-white/90 no-underline hover:text-orange">{l.label}</a></li>)}
                   </ul>
                 </div>
               ))}

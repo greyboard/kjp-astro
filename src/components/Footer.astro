@@ -5,7 +5,7 @@ const year = new Date().getFullYear();
 const [diagnose, therapie] = megaMenu;
 const diagnoseLinks = diagnose.columns.flatMap((c) => c.links).slice(0, 6);
 const therapieLinks = therapie.columns.flatMap((c) => c.links);
-const colors = ['#F07F12', '#FCC016', '#F5E925', '#ACC90B'];
+const colors = ['#F07F12', '#ACC90B'];
 ---
 <footer class="relative mt-5 bg-night text-white/75">
   <!-- Farbleiste aus den Logo-Ringen -->
@@ -48,17 +48,17 @@ const colors = ['#F07F12', '#FCC016', '#F5E925', '#ACC90B'];
       <p class="footer-title" style="--c:#F07F12">Diagnose</p>
       <ul class="mt-5 space-y-2.5 text-sm">
         {diagnoseLinks.map((l) => <li><a href={l.href} class="footer-link">{l.label}</a></li>)}
-        <li><a href={diagnose.cta.href} class="font-semibold text-amber no-underline hover:text-white">{diagnose.cta.label} →</a></li>
+        <li><a href={diagnose.cta.href} class="font-semibold text-orange no-underline hover:text-white">{diagnose.cta.label} →</a></li>
       </ul>
     </div>
     <div>
-      <p class="footer-title" style="--c:#FCC016">Therapie</p>
+      <p class="footer-title" style="--c:#ACC90B">Therapie</p>
       <ul class="mt-5 space-y-2.5 text-sm">
         {therapieLinks.map((l) => <li><a href={l.href} class="footer-link">{l.label}</a></li>)}
       </ul>
     </div>
     <div>
-      <p class="footer-title" style="--c:#ACC90B">Praxis</p>
+      <p class="footer-title" style="--c:#F07F12">Praxis</p>
       <address class="mt-5 text-sm not-italic leading-relaxed">
         {site.address.street}<br />{site.address.zip} {site.address.city}<br />
         <a href={site.mapsUrl} target="_blank" rel="noopener" class="footer-link">Route planen</a>
@@ -71,7 +71,7 @@ const colors = ['#F07F12', '#FCC016', '#F5E925', '#ACC90B'];
       <p class="mt-5 text-sm"><a href={`mailto:${site.email}`} class="footer-link break-all">{site.email}</a></p>
     </div>
     <div>
-      <p class="footer-title" style="--c:#F5E925">Service</p>
+      <p class="footer-title" style="--c:#ACC90B">Service</p>
       <ul class="mt-5 space-y-2.5 text-sm">
         <li><a href="/kontakt#rezept" class="footer-link">Rezept vorbestellen</a></li>
         <li><a href="/kontakt#download" class="footer-link">Unterlagen herunterladen</a></li>
