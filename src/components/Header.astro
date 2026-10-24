@@ -1,48 +1,262 @@
 ---
+import { Image } from 'astro:assets';
 import LogoMark from './LogoMark.astro';
-import { nav, site } from '../data/site';
+import { megaMenu, site } from '../data/site';
+import diagnoseImg from '../assets/img/hero-adhs.jpg';
+import therapieImg from '../assets/img/einzeltherapie.jpg';
+import praxisImg from '../assets/img/hero-kontakt.jpg';
+
 interface Props { solid?: boolean }
 const { solid = false } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const features = {
+  diagnose: { img: diagnoseImg, kicker: 'Schwerpunkt', title: 'ADHS und ADS', text: 'Anzeichen, Diagnostik und Behandlung bei Kindern und Jugendlichen.', href: '/diagnose/adhs-ads' },
+  therapie: { img: therapieImg, kicker: 'Ihr Weg zu uns', title: 'So läuft es ab', text: 'Von der Anmeldung über die Diagnostik bis zum gemeinsamen Therapieplan.', href: '/#ablauf' },
+  praxis: { img: praxisImg, kicker: 'Für Jugendliche', title: 'Lass uns mal reden', text: 'Du kannst dich auch selbst bei uns melden. Vertraulich und ohne Druck.', href: '/kontakt#jugendliche' },
+};
+const accents = ['#F07F12', '#ACC90B', '#FCC016'];
+const isActive = (g: (typeof megaMenu)[number]) => g.columns.some((c) => c.links.some((l) => l.href === path));
 ---
-<a href="#inhalt" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-ground">Zum Inhalt springen</a>
-<header id="site-header" data-solid={solid || undefined} data-scrolled={solid || undefined} class="group fixed inset-x-0 top-0 z-50 transition-[background,box-shadow,color] duration-500 data-[scrolled]:bg-ground/85 data-[scrolled]:shadow-[0_1px_0_#e6ddcd] data-[scrolled]:backdrop-blur-xl">
+<a href="#inhalt" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-night focus:px-4 focus:py-2 focus:text-ground">Zum Inhalt springen</a>
+
+<header
+  id="site-header"
+  data-solid={solid || undefined}
+  data-scrolled={solid || undefined}
+  class="group fixed inset-x-0 top-0 z-50 transition-[background,box-shadow] duration-500 data-[scrolled]:bg-ground/90 data-[scrolled]:shadow-[0_1px_0_#e5d9cc] data-[scrolled]:backdrop-blur-xl"
+>
   <div class="container-page flex h-20 items-center justify-between gap-4 transition-[height] duration-500 group-data-[scrolled]:h-16">
-    <a href="/" class="flex items-center gap-3 text-white no-underline group-data-[scrolled]:text-heading" aria-label={`${site.name}, zur Startseite`}>
+    <a href="/" class="relative z-10 flex items-center gap-3 text-white no-underline group-data-[scrolled]:text-heading" aria-label={`${site.name}, zur Startseite`}>
       <LogoMark class="size-10 shrink-0 drop-shadow" />
       <span class="leading-tight">
-        <span class="block text-[1.05rem] font-semibold tracking-tight">{site.shortName}</span>
+        <span class="block text-[1.05rem] font-semibold">{site.shortName}</span>
         <span class="hidden text-xs opacity-75 sm:block">Kinder- und Jugendpsychiater Regensburg</span>
       </span>
     </a>
-    <nav aria-label="Hauptnavigation" class="hidden md:block">
+
+    <!-- Desktop: Mega-Menü -->
+    <nav aria-label="Hauptnavigation" class="hidden lg:block">
       <ul class="flex items-center gap-1 rounded-full bg-white/10 p-1 ring-1 ring-white/20 backdrop-blur-md group-data-[scrolled]:bg-transparent group-data-[scrolled]:ring-0">
-        {nav.map((n) => (
-          <li><a href={n.href} aria-current={path === n.href ? 'page' : undefined} class="block rounded-full px-4 py-2 text-[0.95rem] font-medium text-white no-underline transition hover:bg-white/15 aria-[current=page]:bg-white aria-[current=page]:text-heading group-data-[scrolled]:text-heading group-data-[scrolled]:hover:bg-sand group-data-[scrolled]:aria-[current=page]:bg-ink group-data-[scrolled]:aria-[current=page]:text-ground">{n.label}</a></li>
+        <li>
+          <a href="/" aria-current={path === '/' ? 'page' : undefined} class="nav-pill">Start</a>
+        </li>
+        {megaMenu.map((g, i) => (
+          <li>
+            <button type="button" class:list={['nav-pill mega-trigger', isActive(g) && 'is-active']} aria-expanded="false" aria-controls={`mega-${i}`}>
+              {g.label}
+              <svg class="size-3.5 transition duration-300 [[aria-expanded=true]>&]:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+          </li>
         ))}
+        <li>
+          <a href="/kontakt" aria-current={path === '/kontakt' ? 'page' : undefined} class="nav-pill">Kontakt</a>
+        </li>
       </ul>
     </nav>
-    <div class="flex items-center gap-2">
-      <a href={site.phone.href} class="hidden px-3 py-2 font-medium text-white no-underline lg:inline-flex group-data-[scrolled]:text-heading">{site.phone.display}</a>
+
+    <div class="relative z-10 flex items-center gap-2">
+      <a href={site.phone.href} class="hidden px-3 py-2 font-medium text-white no-underline xl:inline-flex group-data-[scrolled]:text-heading">{site.phone.display}</a>
       <a href="/kontakt#anmeldung" class="hidden min-h-11 items-center rounded-full bg-orange px-5 font-semibold text-night no-underline transition hover:bg-amber sm:inline-flex">Termin anfragen</a>
-      <details class="relative md:hidden">
-        <summary class="grid size-11 cursor-pointer list-none place-items-center rounded-full bg-white/15 text-white ring-1 ring-white/30 backdrop-blur group-data-[scrolled]:bg-sand group-data-[scrolled]:text-heading group-data-[scrolled]:ring-0 [&::-webkit-details-marker]:hidden" aria-label="Menü öffnen">
-          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16" /></svg>
-        </summary>
-        <nav aria-label="Mobile Navigation" class="absolute right-0 top-14 w-72 rounded-3xl bg-ground p-3 text-heading shadow-2xl ring-1 ring-line">
-          <ul>
-            {nav.map((n) => (<li><a href={n.href} class="block rounded-2xl px-4 py-3 text-lg font-medium text-heading no-underline hover:bg-sand">{n.label}</a></li>))}
-            <li><a href={site.phone.href} class="block rounded-2xl px-4 py-3 font-medium text-heading no-underline hover:bg-sand">Anrufen: {site.phone.display}</a></li>
-            <li class="mt-2"><a href="/kontakt#anmeldung" class="block rounded-full bg-orange px-4 py-3 text-center font-semibold text-night no-underline">Termin anfragen</a></li>
-          </ul>
-        </nav>
-      </details>
+      <button id="mobile-open" type="button" class="grid size-11 place-items-center rounded-full bg-white/15 text-white ring-1 ring-white/30 backdrop-blur lg:hidden group-data-[scrolled]:bg-sand group-data-[scrolled]:text-heading group-data-[scrolled]:ring-0" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menü öffnen">
+        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16" /></svg>
+      </button>
     </div>
   </div>
+
+  <!-- Mega-Panels -->
+  {megaMenu.map((g, i) => {
+    const f = features[g.feature];
+    return (
+      <div id={`mega-${i}`} class="mega-panel absolute inset-x-0 top-full pt-2" hidden>
+        <div class="container-page">
+          <div class="overflow-hidden rounded-[2rem] bg-ground shadow-[0_40px_80px_-20px_rgba(42,35,30,0.35)] ring-1 ring-line">
+            <div class="grid grid-cols-[1fr_20rem] gap-0">
+              <div class="p-10">
+                <div class="flex items-end justify-between gap-8 border-b border-line pb-6">
+                  <div>
+                    <p class="eyebrow">{g.label}</p>
+                    <p class="mt-3 max-w-lg text-muted">{g.intro}</p>
+                  </div>
+                  <a href={g.cta.href} class="shrink-0 font-semibold">{g.cta.label} →</a>
+                </div>
+                <div class:list={['mt-8 grid gap-10', g.columns.length === 3 ? 'grid-cols-3' : 'grid-cols-2']}>
+                  {g.columns.map((c, ci) => (
+                    <div>
+                      <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-heading">
+                        <span class="size-2 rounded-full" style={`background:${accents[ci % 3]}`} aria-hidden="true"></span>{c.title}
+                      </p>
+                      <ul class="mt-4 space-y-1">
+                        {c.links.map((l) => (
+                          <li>
+                            <a href={l.href} aria-current={l.href === path ? 'page' : undefined} class="group/link -mx-3 flex items-start justify-between gap-3 rounded-2xl px-3 py-2.5 no-underline transition hover:bg-sand aria-[current=page]:bg-cream">
+                              <span>
+                                <span class="block font-medium text-heading">{l.label}</span>
+                                {l.text && <span class="block text-sm text-muted">{l.text}</span>}
+                              </span>
+                              <span class="mt-1 text-orange-dark opacity-0 transition group-hover/link:translate-x-0.5 group-hover/link:opacity-100" aria-hidden="true">→</span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <a href={f.href} class="group/feat relative isolate flex flex-col justify-end overflow-hidden bg-night p-8 text-white no-underline">
+                <Image src={f.img} alt="" widths={[320, 640]} sizes="20rem" loading="lazy" class="absolute inset-0 -z-10 size-full object-cover opacity-75 transition duration-700 group-hover/feat:scale-105" />
+                <span class="absolute inset-0 -z-10 bg-gradient-to-t from-night via-night/50 to-transparent" aria-hidden="true"></span>
+                <span class="font-serif text-2xl text-amber">{f.kicker}</span>
+                <span class="mt-1 text-2xl font-medium text-white">{f.title}</span>
+                <span class="mt-2 text-sm text-white/80">{f.text}</span>
+                <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">Mehr erfahren <span class="grid size-8 place-items-center rounded-full bg-orange text-night transition group-hover/feat:translate-x-1">→</span></span>
+              </a>
+            </div>
+            <div class="flex items-center justify-between gap-6 border-t border-line bg-sand/60 px-10 py-4 text-sm">
+              <p class="text-muted"><strong class="text-heading">Telefonisch erreichbar:</strong> {site.phoneHours} · <a href={site.phone.href} class="font-semibold">{site.phone.display}</a></p>
+              <p class="text-muted">{site.address.street}, {site.address.zip} {site.address.city}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  })}
 </header>
+
+<!-- Overlay hinter dem Mega-Menü -->
+<div id="mega-backdrop" class="pointer-events-none fixed inset-0 z-40 bg-night/40 opacity-0 backdrop-blur-[2px] transition-opacity duration-300"></div>
+
+<!-- Mobile: Vollbild-Menü -->
+<div id="mobile-menu" class="fixed inset-0 z-[60] hidden flex-col overflow-y-auto bg-night text-white lg:hidden" role="dialog" aria-modal="true" aria-label="Menü">
+  <div class="container-page flex h-20 shrink-0 items-center justify-between">
+    <a href="/" class="flex items-center gap-3 text-white no-underline"><LogoMark class="size-10" /><span class="font-semibold">{site.shortName}</span></a>
+    <button id="mobile-close" type="button" class="grid size-11 place-items-center rounded-full bg-white/10 ring-1 ring-white/20" aria-label="Menü schließen">
+      <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+    </button>
+  </div>
+  <nav aria-label="Mobile Navigation" class="container-page flex-1 pb-8 pt-4">
+    <ul class="border-t border-white/10">
+      <li class="border-b border-white/10"><a href="/" class="block py-5 text-3xl font-medium text-white no-underline">Start</a></li>
+      {megaMenu.map((g) => (
+        <li class="border-b border-white/10">
+          <details class="group/acc">
+            <summary class="flex cursor-pointer list-none items-center justify-between py-5 text-3xl font-medium [&::-webkit-details-marker]:hidden">
+              {g.label}
+              <span class="grid size-10 place-items-center rounded-full bg-white/10 text-xl transition group-open/acc:rotate-45 group-open/acc:bg-orange group-open/acc:text-night" aria-hidden="true">+</span>
+            </summary>
+            <div class="space-y-6 pb-6">
+              {g.columns.map((c, ci) => (
+                <div>
+                  <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/50"><span class="size-2 rounded-full" style={`background:${accents[ci % 3]}`}></span>{c.title}</p>
+                  <ul class="mt-2">
+                    {c.links.map((l) => <li><a href={l.href} class="block py-2 text-lg text-white/90 no-underline hover:text-amber">{l.label}</a></li>)}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </details>
+        </li>
+      ))}
+      <li class="border-b border-white/10"><a href="/kontakt" class="block py-5 text-3xl font-medium text-white no-underline">Kontakt</a></li>
+    </ul>
+    <div class="mt-10 grid gap-3">
+      <a href="/kontakt#anmeldung" class="rounded-full bg-orange px-6 py-4 text-center font-semibold text-night no-underline">Termin anfragen</a>
+      <a href={site.phone.href} class="rounded-full px-6 py-4 text-center font-semibold text-white no-underline ring-1 ring-white/30">{site.phone.display}</a>
+      <p class="mt-4 text-center text-sm text-white/60">{site.phoneHours}</p>
+    </div>
+  </nav>
+</div>
+
+<style>
+  @reference '../styles/global.css';
+  .nav-pill {
+    @apply inline-flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-[0.95rem] font-medium text-white no-underline transition hover:bg-white/15;
+  }
+  .nav-pill[aria-current='page'],
+  .nav-pill.is-active,
+  .nav-pill[aria-expanded='true'] {
+    @apply bg-white text-heading;
+  }
+  :global(#site-header[data-scrolled]) .nav-pill { @apply text-heading hover:bg-sand; }
+  :global(#site-header[data-scrolled]) .nav-pill[aria-current='page'],
+  :global(#site-header[data-scrolled]) .nav-pill.is-active,
+  :global(#site-header[data-scrolled]) .nav-pill[aria-expanded='true'] {
+    @apply bg-night text-ground;
+  }
+  .mega-panel:not([hidden]) { animation: mega-in 0.35s cubic-bezier(0.2, 0.7, 0.1, 1) both; }
+  @keyframes mega-in {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: none; }
+  }
+</style>
+
 <script>
-  const header = document.getElementById('site-header');
-  const update = () => header?.toggleAttribute('data-scrolled', header.hasAttribute('data-solid') || window.scrollY > 40);
-  update();
-  window.addEventListener('scroll', update, { passive: true });
+  const header = document.getElementById('site-header')!;
+  const backdrop = document.getElementById('mega-backdrop')!;
+  const triggers = [...document.querySelectorAll<HTMLButtonElement>('.mega-trigger')];
+  let openIndex = -1;
+  let closeTimer: number | undefined;
+
+  const syncHeader = () =>
+    header.toggleAttribute('data-scrolled', header.hasAttribute('data-solid') || openIndex > -1 || window.scrollY > 40);
+
+  function setOpen(i: number) {
+    window.clearTimeout(closeTimer);
+    triggers.forEach((t, ti) => {
+      const panel = document.getElementById(t.getAttribute('aria-controls')!)!;
+      const open = ti === i;
+      t.setAttribute('aria-expanded', String(open));
+      panel.hidden = !open;
+    });
+    openIndex = i;
+    backdrop.classList.toggle('opacity-100', i > -1);
+    backdrop.classList.toggle('pointer-events-auto', i > -1);
+    syncHeader();
+  }
+  const scheduleClose = () => { closeTimer = window.setTimeout(() => setOpen(-1), 180); };
+
+  triggers.forEach((t, i) => {
+    const panel = document.getElementById(t.getAttribute('aria-controls')!)!;
+    let hoverOpenedAt = 0;
+    t.addEventListener('click', () => {
+      // Klick direkt nach dem Öffnen per Hover soll das Panel nicht wieder schließen
+      if (openIndex === i && Date.now() - hoverOpenedAt < 600) return;
+      setOpen(openIndex === i ? -1 : i);
+    });
+    t.addEventListener('mouseenter', () => {
+      if (openIndex !== i) hoverOpenedAt = Date.now();
+      setOpen(i);
+    });
+    t.addEventListener('mouseleave', scheduleClose);
+    panel.addEventListener('mouseenter', () => window.clearTimeout(closeTimer));
+    panel.addEventListener('mouseleave', scheduleClose);
+  });
+  backdrop.addEventListener('click', () => setOpen(-1));
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || openIndex < 0) return;
+    const t = triggers[openIndex];
+    setOpen(-1);
+    t.focus();
+  });
+  header.addEventListener('focusout', (e) => {
+    if (!header.contains(e.relatedTarget as Node)) setOpen(-1);
+  });
+  window.addEventListener('scroll', syncHeader, { passive: true });
+  syncHeader();
+
+  // Mobile-Menü
+  const mobile = document.getElementById('mobile-menu')!;
+  const openBtn = document.getElementById('mobile-open')!;
+  const closeBtn = document.getElementById('mobile-close')!;
+  const toggleMobile = (open: boolean) => {
+    mobile.classList.toggle('hidden', !open);
+    mobile.classList.toggle('flex', open);
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    openBtn.setAttribute('aria-expanded', String(open));
+    (open ? closeBtn : openBtn).focus();
+  };
+  openBtn.addEventListener('click', () => toggleMobile(true));
+  closeBtn.addEventListener('click', () => toggleMobile(false));
+  mobile.addEventListener('keydown', (e) => e.key === 'Escape' && toggleMobile(false));
+  mobile.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => toggleMobile(false)));
 </script>
