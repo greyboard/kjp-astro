@@ -1,0 +1,11 @@
+# Phase 1: nur die bereits feststehenden Ziele. Vollständige Redirect-Map vor Go-Live ergänzen.
+/kontakt/erstsichtung            /kontakt#erstsichtung   301
+/kontakt/kontaktformular-kinder  /kontakt#jugendliche    301
+/kontakt/erstanmeldung           /kontakt#anmeldung      301
+/kontakt/terminanfrage           /kontakt#anmeldung      301
+/kontakt/rezept-vorbestellung    /kontakt#rezept         301
+/kontakt/download                /kontakt#download       301
+/kontakt/praxis-regensburg       /kontakt#anfahrt        301
+/fileadmin/user_upload/fragebogen-kinder.pdf       /downloads/fragebogen-kinder.pdf       301
+/fileadmin/user_upload/fragebogen-jugendliche.pdf  /downloads/fragebogen-jugendliche.pdf  301
+/fileadmin/user_upload/behandlungsvertrag-allg.pdf /downloads/behandlungsvertrag-allg.pdf 301

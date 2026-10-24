@@ -1,0 +1,23 @@
+---
+import Button from './Button.astro';
+import CircleOrnament from './CircleOrnament.astro';
+import { site } from '../data/site';
+interface Props { title?: string; text?: string }
+const {
+  title = 'Sie machen sich Sorgen um Ihr Kind?',
+  text = 'Sprechen Sie uns an. Gemeinsam klären wir, was Ihr Kind braucht und welcher nächste Schritt sinnvoll ist.',
+} = Astro.props;
+---
+<section class="container-page my-20">
+  <div class="relative overflow-hidden rounded-[2rem] bg-ink px-6 py-12 text-ground sm:px-12 sm:py-16">
+    <CircleOrnament class="pointer-events-none absolute -right-24 -top-24 size-72 sm:size-96" />
+    <div class="relative max-w-xl">
+      <h2 class="text-3xl text-ground sm:text-4xl">{title}</h2>
+      <p class="mt-4 text-ground/85">{text}</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <Button href="/kontakt#anmeldung">Ersttermin anfragen</Button>
+        <Button href={site.phone.href} variant="secondary">{site.phone.display}</Button>
+      </div>
+    </div>
+  </div>
+</section>

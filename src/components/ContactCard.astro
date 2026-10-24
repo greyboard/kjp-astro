@@ -1,0 +1,24 @@
+---
+import { site } from '../data/site';
+interface Props { class?: string; headingLevel?: 'h2' | 'h3' }
+const { class: cls = '', headingLevel: H = 'h3' } = Astro.props;
+---
+<div class:list={['card grid gap-6 sm:grid-cols-2', cls]}>
+  <div>
+    <H class="text-xl">So erreichen Sie uns</H>
+    <ul class="mt-4 space-y-3">
+      <li><span class="block text-sm text-muted">Telefon</span><a href={site.phone.href} class="text-lg font-bold">{site.phone.display}</a></li>
+      <li><span class="block text-sm text-muted">E-Mail</span><a href={`mailto:${site.email}`} class="break-all">{site.email}</a></li>
+      <li><span class="block text-sm text-muted">Adresse</span>{site.address.street}, {site.address.zip} {site.address.city}<br /><a href={site.mapsUrl} rel="noopener" target="_blank" class="text-sm">Route in Google Maps öffnen</a></li>
+    </ul>
+  </div>
+  <div>
+    <H class="text-xl">Öffnungszeiten</H>
+    <dl class="mt-4 space-y-2">
+      {site.openingHours.map((h) => (
+        <div><dt class="text-sm text-muted">{h.label}</dt><dd class="font-semibold">{h.time}</dd></div>
+      ))}
+    </dl>
+    <p class="mt-4 rounded-2xl bg-surface-alt p-4 text-sm"><strong>Telefonisch erreichbar:</strong><br />{site.phoneHours}</p>
+  </div>
+</div>

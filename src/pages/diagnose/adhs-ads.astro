@@ -1,0 +1,273 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Button from '../../components/Button.astro';
+import CircleOrnament from '../../components/CircleOrnament.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Faq from '../../components/Faq.astro';
+import { site } from '../../data/site';
+
+// Bis die übrigen Seiten gebaut sind, zeigen Links auf die Altseite (vor Go-Live umstellen)
+const OLD = 'https://www.kinder-jugendpsychiater.org';
+
+// Fachliche Freigabe durch die Praxis ausstehend, vor Go-Live Datum und Prüfer eintragen
+const review = { by: '', date: '' };
+
+const symptoms = [
+  {
+    title: 'Unaufmerksamkeit',
+    text: 'Schwierigkeiten, bei einer Sache zu bleiben, leichte Ablenkbarkeit, Flüchtigkeitsfehler, Dinge werden begonnen und nicht beendet.',
+    color: '#F07F12',
+  },
+  {
+    title: 'Hyperaktivität',
+    text: 'Ausgeprägte motorische Unruhe, besonders dann, wenn eigentlich Ruhe gefragt ist, etwa im Unterricht oder beim Essen.',
+    color: '#FCC016',
+  },
+  {
+    title: 'Impulsivität',
+    text: 'Vorschnelles, unüberlegtes Handeln, geringe Frustrationstoleranz, Schwierigkeiten zu warten oder andere ausreden zu lassen.',
+    color: '#ACC90B',
+  },
+];
+
+const diagnostics = [
+  { title: 'Erstgespräch und Anamnese', text: 'Wir erheben die Entwicklungs- und Familiengeschichte und hören uns die Sicht des Kindes und der Eltern an.' },
+  { title: 'Fremdbefunde', text: 'Rückmeldungen aus Schule oder Kita sowie Vorbefunde anderer Ärzte und Therapeuten fließen mit ein.' },
+  { title: 'Testpsychologie', text: 'Standardisierte Verfahren zu Aufmerksamkeit, Konzentration, Begabung und Teilleistungen wie Lesen, Schreiben und Rechnen.' },
+  { title: 'Beobachtung und Untersuchung', text: 'Verhaltensbeobachtung und körperliche Untersuchung, um andere Ursachen auszuschließen.' },
+  { title: 'Teambesprechung und Bericht', text: 'Die Ergebnisse besprechen wir im Team und anschließend ausführlich mit Ihnen. Sie erhalten einen schriftlichen Bericht.' },
+];
+
+const programs = [
+  'Elternberatung bei ADHS',
+  'ADHS-Elterntraining',
+  'Basis- und Strukturtraining',
+  'Hausaufgabenstrukturierung',
+  'Marburger Konzentrationstraining',
+  'Attentioner-Gruppe',
+  'Gruppe für soziale Kompetenz',
+  'Psychomotorik-Gruppe',
+];
+
+const faq = [
+  {
+    q: 'Ab welchem Alter kann ADHS festgestellt werden?',
+    a: 'Erste Anzeichen zeigen sich oft schon zwischen dem dritten und fünften Lebensjahr. Eine verlässliche Diagnose ist meist ab dem Vorschul- und Grundschulalter möglich, wenn sich die Auffälligkeiten über längere Zeit und in mehreren Lebensbereichen zeigen.',
+  },
+  {
+    q: 'Was ist der Unterschied zwischen ADHS und ADS?',
+    a: 'ADS bezeichnet umgangssprachlich die Form ohne ausgeprägte Hyperaktivität. Fachlich spricht man von ADHS mit vorwiegend unaufmerksamem Erscheinungsbild. Betroffene Kinder wirken eher still und verträumt und fallen deshalb oft später auf.',
+  },
+  {
+    q: 'Wie läuft die ADHS-Diagnostik ab und wie lange dauert sie?',
+    a: 'Die Diagnostik umfasst Gespräche mit Kind und Eltern, Fragebögen, Rückmeldungen aus der Schule, testpsychologische Untersuchungen und eine körperliche Untersuchung. Sie verteilt sich auf mehrere Termine. Wie viele es sind, hängt von der Fragestellung ab.',
+  },
+  {
+    q: 'Muss mein Kind Medikamente nehmen?',
+    a: 'Nein, nicht automatisch. Medikamente sind bei uns kein erster Schritt, sondern ein möglicher Baustein in einem Gesamtkonzept. Oft helfen bereits Struktur, Beratung und Therapie. Wenn eine Medikation sinnvoll ist, beginnen wir niedrig dosiert und kontrollieren engmaschig.',
+  },
+  {
+    q: 'Was sollte ich zum ersten Termin mitbringen?',
+    a: 'Die ausgefüllten Fragebögen und den Behandlungsvertrag aus unserem Download-Bereich, die Versichertenkarte, eine Überweisung falls vorhanden, Zeugnisse und vorhandene Befunde von Schule, Kita oder anderen Ärzten.',
+  },
+  {
+    q: 'Kann ADHS wieder verschwinden?',
+    a: 'Die körperliche Unruhe lässt im Jugendalter häufig nach, Aufmerksamkeitsprobleme und Impulsivität bleiben oft bestehen. Mit guter Begleitung lernen Kinder und Jugendliche aber, damit umzugehen und ihre Stärken zu nutzen.',
+  },
+];
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalWebPage',
+  name: 'ADHS und ADS bei Kindern und Jugendlichen',
+  url: `${site.url}/diagnose/adhs-ads`,
+  inLanguage: 'de-DE',
+  audience: { '@type': 'MedicalAudience', audienceType: 'Patient' },
+  about: {
+    '@type': 'MedicalCondition',
+    name: 'Aufmerksamkeitsdefizit-/Hyperaktivitätsstörung (ADHS)',
+    alternateName: ['ADHS', 'ADS', 'Hyperkinetische Störung'],
+    code: { '@type': 'MedicalCode', code: '6A05', codingSystem: 'ICD-11' },
+    signOrSymptom: symptoms.map((s) => ({ '@type': 'MedicalSignOrSymptom', name: s.title })),
+  },
+  publisher: { '@id': `${site.url}/#praxis` },
+  ...(review.date ? { lastReviewed: review.date } : {}),
+};
+---
+<BaseLayout
+  title="ADHS bei Kindern und Jugendlichen: Diagnose und Therapie in Regensburg"
+  description="ADHS und ADS bei Kindern und Jugendlichen: Anzeichen, Diagnostik und multimodale Therapie in der Praxis für Kinder- und Jugendpsychiatrie Regensburg. Jetzt Ersttermin anfragen."
+  schema={[pageSchema]}
+>
+  <section class="relative overflow-hidden">
+    <CircleOrnament class="pointer-events-none absolute -right-32 -top-20 hidden size-[28rem] lg:block" faded />
+    <div class="container-page relative pt-10 sm:pt-14">
+      <Breadcrumbs items={[{ label: 'Start', href: '/' }, { label: 'Diagnose', href: `${OLD}/diagnose` }, { label: 'ADHS / ADS' }]} />
+      <div class="mt-6 max-w-3xl">
+        <p class="eyebrow">Diagnose</p>
+        <h1 class="mt-3 text-4xl sm:text-5xl">ADHS und ADS bei Kindern und Jugendlichen</h1>
+        <p class="mt-5 text-lg text-muted">Aufmerksamkeitsdefizit-/Hyperaktivitätsstörung: was dahintersteckt, wie wir sie sorgfältig abklären und wie Ihr Kind im Alltag wieder Halt findet.</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href="/kontakt#anmeldung">Ersttermin anfragen</Button>
+          <Button href="#diagnostik" variant="secondary">So läuft die Diagnostik</Button>
+        </div>
+      </div>
+
+      <aside class="mt-12 max-w-3xl rounded-[var(--radius-card)] border-l-8 border-orange bg-cream p-6 sm:p-8" aria-labelledby="kurz">
+        <h2 id="kurz" class="text-xl">Kurz gesagt</h2>
+        <p class="mt-3">
+          ADHS ist eine der häufigsten psychischen Auffälligkeiten im Kindes- und Jugendalter. Kennzeichen sind
+          Unaufmerksamkeit, Hyperaktivität und Impulsivität, die über längere Zeit und in mehreren Lebensbereichen
+          auftreten. In unserer Praxis in Regensburg klären wir ADHS und ADS ausführlich ab und behandeln multimodal:
+          mit Elternarbeit, Training, Therapie und, nur wenn nötig, einer sorgfältig begleiteten Medikation.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="container-page mt-20 space-y-24">
+    <!-- Anzeichen -->
+    <section aria-labelledby="anzeichen">
+      <div class="max-w-3xl">
+        <h2 id="anzeichen" class="text-3xl sm:text-4xl">Woran man ADHS erkennt</h2>
+        <div class="prose-kjp mt-5 text-muted">
+          <p>Die Störung wurde bereits im 19. Jahrhundert beschrieben. Die Diagnosekriterien sind heute in der ICD-11 und im DSM-5 festgelegt. Im Mittelpunkt stehen drei Kernsymptome:</p>
+        </div>
+      </div>
+      <div class="mt-8 grid gap-5 md:grid-cols-3">
+        {symptoms.map((s) => (
+          <article class="card">
+            <span class="block h-2 w-14 rounded-full" style={`background:${s.color}`} aria-hidden="true"></span>
+            <h3 class="mt-5 text-2xl">{s.title}</h3>
+            <p class="mt-3 text-muted">{s.text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="prose-kjp mt-10 max-w-3xl">
+        <p>
+          Im Alltag zeigt sich das oft so: Aufgaben werden vorzeitig abgebrochen, Aktivitäten häufig gewechselt.
+          Betroffene Kinder wirken in Gruppen unorganisiert, sprunghaft und ständig abgelenkt. In ruhigen Einzelsituationen
+          und bei guter Motivation können dieselben Kinder dagegen erstaunlich lange konzentriert arbeiten.
+        </p>
+        <p>
+          Weil das eigene Handeln schwer zu steuern ist, entstehen häufig Folgeprobleme beim Lernen und im Miteinander.
+          Die Kinder werden dann schnell als ungeschickt, oberflächlich oder ungehorsam erlebt, obwohl sie sich oft
+          sehr bemühen. Hinter Unruhe oder Ablenkbarkeit stehen manchmal auch Entwicklungsthemen, die sich erst im Verlauf zeigen.
+        </p>
+      </div>
+    </section>
+
+    <!-- ADS -->
+    <section aria-labelledby="ads" class="grid gap-8 rounded-[2rem] bg-surface-alt p-8 sm:p-12 lg:grid-cols-[0.8fr_1.2fr]">
+      <h2 id="ads" class="text-3xl sm:text-4xl">ADHS oder ADS?</h2>
+      <div class="prose-kjp">
+        <p>
+          Nicht jedes Kind mit ADHS ist zappelig. Bei der Form ohne ausgeprägte Hyperaktivität, oft ADS genannt, stehen
+          Verträumtheit, Langsamkeit und Konzentrationsprobleme im Vordergrund. Diese stillen Kinder fallen seltener auf
+          und werden deshalb häufig erst spät erkannt, manchmal zusammen mit Lese-Rechtschreib-Schwierigkeiten oder
+          großer Unsicherheit.
+        </p>
+        <p>
+          Typischerweise zeigen sich die Auffälligkeiten zwischen dem dritten und fünften Lebensjahr. Im Jugendalter
+          lässt die körperliche Unruhe oft nach, Impulsivität und Aufmerksamkeitsprobleme bleiben aber häufig bestehen.
+        </p>
+      </div>
+    </section>
+
+    <!-- Diagnostik -->
+    <section id="diagnostik" aria-labelledby="h-diagnostik">
+      <div class="max-w-3xl">
+        <h2 id="h-diagnostik" class="text-3xl sm:text-4xl">So läuft die Diagnostik bei uns</h2>
+        <p class="mt-5 text-muted">Eine gute Diagnose braucht Zeit und mehrere Blickwinkel. Wir nehmen das Kind als Ganzes in den Blick, nicht nur einzelne Symptome.</p>
+      </div>
+      <ol class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+        {diagnostics.map((d, i) => (
+          <li class="card p-6 sm:p-6">
+            <span class="font-display text-4xl font-semibold text-orange-deep" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="mt-3 text-lg">{d.title}</h3>
+            <p class="mt-2 text-sm text-muted">{d.text}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-8"><a href="/kontakt#download" class="font-bold">Fragebögen zum Ersttermin herunterladen →</a></p>
+    </section>
+
+    <!-- Behandlung -->
+    <section aria-labelledby="behandlung" class="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+      <div>
+        <h2 id="behandlung" class="text-3xl sm:text-4xl">Behandlung: mehr als die Frage nach Medikamenten</h2>
+        <div class="prose-kjp mt-5">
+          <p>
+            Wir klären sorgfältig, beobachten gemeinsam und verbinden medizinisches Wissen mit psychologischer Erfahrung.
+            Oft reichen bereits Struktur, Beratung oder Therapie. Manchmal braucht es zusätzlich eine medikamentöse
+            Unterstützung.
+          </p>
+          <h3 class="!mt-8 text-xl">Wenn Medikamente sinnvoll sind</h3>
+          <ul>
+            <li>Wir beginnen grundsätzlich niedrig dosiert und prüfen Wirkung und Nebenwirkungen sehr aufmerksam.</li>
+            <li>Die Medikation wird meist nur an Schultagen eingesetzt.</li>
+            <li>Etwa alle sechs Wochen gibt es kurze Kontrolltermine, ergänzt durch Rückmeldungen von Eltern und Schule.</li>
+            <li>Läuft die Behandlung gut, planen wir regelmäßige Auslassversuche und später oft längere Phasen ohne Medikamente.</li>
+          </ul>
+          <p>
+            Parallel entwickeln wir mit Eltern und Schule klare Strukturen, Verstärkerpläne und Strategien für Alltag,
+            Lernen und emotionale Entwicklung. Eine persönliche Beobachtung aus dem Praxisalltag lesen Sie im Text
+            <a href={`${OLD}/gedanken/fuenf-milligramm`}>„Fünf Milligramm“</a>.
+          </p>
+        </div>
+      </div>
+      <aside class="card self-start bg-cream" aria-labelledby="angebote">
+        <h3 id="angebote" class="text-xl">Unsere Angebote bei ADHS</h3>
+        <p class="mt-2 text-sm text-muted">Orientiert am Protokoll des zentralen ADHS-Netzes</p>
+        <ul class="prose-kjp mt-4">
+          {programs.map((p) => <li>{p}</li>)}
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Netzwerk und Forschung -->
+    <section aria-labelledby="netzwerk" class="grid gap-5 md:grid-cols-2">
+      <h2 id="netzwerk" class="sr-only">Netzwerk und Forschung</h2>
+      <article class="card">
+        <p class="eyebrow">Netzwerk</p>
+        <h3 class="mt-3 text-2xl">ADHS-Netzwerk Oberpfalz</h3>
+        <p class="mt-3 text-muted">Wir sind als regionales Netz des Bereichs Oberpfalz im <a href="https://www.zentrales-adhs-netz.de" rel="noopener" target="_blank">zentralen ADHS-Netz</a> anerkannt. Regionale Netze sind interdisziplinär organisierte Versorgungsnetze für Menschen mit ADHS.</p>
+      </article>
+      <article class="card">
+        <p class="eyebrow">Forschung</p>
+        <h3 class="mt-3 text-2xl">Studie mit der Universität Regensburg</h3>
+        <p class="mt-3 text-muted">Gemeinsam mit dem Institut für Sportwissenschaft der Universität Regensburg haben wir untersucht, wie Bewegung und Motorik mit den kognitiven Fähigkeiten von Kindern mit ADHS zusammenhängen. Die Tests fanden in unseren Praxisräumen statt.</p>
+      </article>
+    </section>
+
+    <!-- Aus der Praxis -->
+    <section aria-labelledby="geschichte" class="relative overflow-hidden rounded-[2rem] bg-ink p-8 text-ground sm:p-12">
+      <div class="max-w-2xl">
+        <p class="eyebrow !text-leaf">Aus der Praxis</p>
+        <h2 id="geschichte" class="mt-3 text-3xl text-ground">Lukas: Wenn Energie ihren Platz sucht</h2>
+        <p class="mt-4 text-ground/85">Ein lebendiger Junge lernt, seine Kraft zu lenken. Aus Unruhe wird Bewegung, aus Bewegung wächst Richtung und Vertrauen in das eigene Können.</p>
+        <a href={`${OLD}/fallbeispiele/lukas-wenn-energie-ihren-platz-sucht`} class="mt-6 inline-block font-bold text-amber">Geschichte lesen →</a>
+      </div>
+    </section>
+
+    <!-- Weiterführend -->
+    <section aria-labelledby="links">
+      <h2 id="links" class="text-2xl">Weiterführende Informationen</h2>
+      <ul class="prose-kjp mt-4">
+        <li><a href="https://www.zentrales-adhs-netz.de" rel="noopener" target="_blank">Zentrales ADHS-Netz</a>: bundesweites Netzwerk zur Verbesserung der Versorgung</li>
+        <li><a href="https://www.adhs.info" rel="noopener" target="_blank">ADHS-Infoportal</a>: Informationen für Eltern, Pädagogen und ein eigener Kinderbereich</li>
+        <li><a href="https://www.adhs-deutschland.de" rel="noopener" target="_blank">ADHS Deutschland e. V.</a>: Selbsthilfe auf Bundes-, Landes- und örtlicher Ebene</li>
+      </ul>
+    </section>
+
+    <Faq items={faq} title="Häufige Fragen zu ADHS" />
+
+    <p class="text-sm text-muted">
+      Diese Seite ersetzt keine ärztliche Untersuchung.{' '}
+      {review.date ? `Fachlich geprüft von ${review.by} am ${review.date}.` : 'Fachliche Prüfung durch die Praxis ausstehend.'}
+    </p>
+  </div>
+
+  <CtaBand title="Unsicher, ob es ADHS ist?" text="Sprechen Sie uns an. Wir nehmen uns Zeit für eine sorgfältige Abklärung und besprechen mit Ihnen, was Ihrem Kind wirklich hilft." />
+</BaseLayout>

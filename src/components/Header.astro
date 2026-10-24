@@ -1,0 +1,40 @@
+---
+import LogoMark from './LogoMark.astro';
+import { nav, site } from '../data/site';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<a href="#inhalt" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-ground">Zum Inhalt springen</a>
+<header class="sticky top-0 z-40 border-b border-line/70 bg-ground/90 backdrop-blur">
+  <div class="container-page flex h-20 items-center justify-between gap-4">
+    <a href="/" class="flex items-center gap-3 text-ink no-underline" aria-label={`${site.name}, zur Startseite`}>
+      <LogoMark class="size-11 shrink-0" />
+      <span class="leading-tight">
+        <span class="block font-display text-[1.05rem] font-semibold sm:text-lg">{site.shortName}</span>
+        <span class="hidden text-xs text-muted sm:block">Kinder- und Jugendpsychiatrie Regensburg</span>
+      </span>
+    </a>
+    <nav aria-label="Hauptnavigation" class="hidden md:block">
+      <ul class="flex items-center gap-1">
+        {nav.map((n) => (
+          <li><a href={n.href} aria-current={path === n.href ? 'page' : undefined} class="rounded-full px-4 py-2 font-semibold text-ink no-underline hover:bg-cream aria-[current=page]:bg-cream">{n.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="flex items-center gap-2">
+      <a href={site.phone.href} class="hidden rounded-full px-4 py-2 font-bold text-ink no-underline hover:bg-cream lg:inline-flex">{site.phone.display}</a>
+      <a href="/kontakt#anmeldung" class="hidden min-h-11 items-center rounded-full bg-orange px-5 font-bold text-ink no-underline hover:bg-orange-light sm:inline-flex">Termin anfragen</a>
+      <details class="relative md:hidden">
+        <summary class="grid size-11 cursor-pointer list-none place-items-center rounded-full bg-cream [&::-webkit-details-marker]:hidden" aria-label="Menü öffnen">
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </summary>
+        <nav aria-label="Mobile Navigation" class="absolute right-0 top-14 w-64 rounded-3xl border border-line bg-surface p-3 shadow-xl">
+          <ul>
+            {nav.map((n) => (<li><a href={n.href} class="block rounded-2xl px-4 py-3 font-semibold text-ink no-underline hover:bg-cream">{n.label}</a></li>))}
+            <li><a href={site.phone.href} class="block rounded-2xl px-4 py-3 font-semibold text-ink no-underline hover:bg-cream">Anrufen: {site.phone.display}</a></li>
+            <li class="mt-2"><a href="/kontakt#anmeldung" class="block rounded-full bg-orange px-4 py-3 text-center font-bold text-ink no-underline">Termin anfragen</a></li>
+          </ul>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,28 @@
+---
+interface Props { items: { q: string; a: string }[]; title?: string }
+const { items, title = 'Häufige Fragen' } = Astro.props;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((i) => ({
+    '@type': 'Question',
+    name: i.q,
+    acceptedAnswer: { '@type': 'Answer', text: i.a },
+  })),
+};
+---
+<section aria-labelledby="faq-title">
+  <h2 id="faq-title" class="text-3xl sm:text-4xl">{title}</h2>
+  <div class="mt-8 divide-y divide-line rounded-[var(--radius-card)] border border-line bg-surface">
+    {items.map((i) => (
+      <details class="group px-6 py-5 sm:px-8">
+        <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-display text-lg font-semibold [&::-webkit-details-marker]:hidden">
+          {i.q}
+          <span class="mt-1 grid size-7 shrink-0 place-items-center rounded-full bg-cream text-orange-deep transition group-open:rotate-45" aria-hidden="true">+</span>
+        </summary>
+        <p class="mt-3 text-muted">{i.a}</p>
+      </details>
+    ))}
+  </div>
+</section>
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

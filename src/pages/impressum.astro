@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+<BaseLayout title="Impressum" description="Impressum der Praxis für Kinder- und Jugendpsychiatrie in Regensburg." noindex>
+  <section class="container-page max-w-3xl pt-14">
+    <h1 class="text-4xl">Impressum</h1>
+    <p class="mt-6 rounded-2xl border-2 border-orange bg-cream p-5 text-sm">
+      <strong>Platzhalter:</strong> Der finale Impressumstext wird vor dem Go-Live mit der Praxis abgestimmt
+      (u. a. Facharztbezeichnungen, Kammer, KV, Verantwortlicher nach § 18 Abs. 2 MStV).
+    </p>
+    <div class="prose-kjp mt-8">
+      <p><strong>{site.name}</strong><br />{site.tagline}<br />{site.address.street}<br />{site.address.zip} {site.address.city}</p>
+      <p>Telefon: {site.phone.display}<br />Telefax: {site.fax}<br />E-Mail: {site.email}</p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,156 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ContactCard from '../components/ContactCard.astro';
+import GhlEmbed from '../components/GhlEmbed.astro';
+import { site } from '../data/site';
+
+const topics = [
+  { id: 'anmeldung', label: 'Erstanmeldung', text: 'Ihr Kind war noch nicht bei uns' },
+  { id: 'erstsichtung', label: 'Erstsichtung buchen', text: 'Termin direkt online wählen' },
+  { id: 'rezept', label: 'Rezept vorbestellen', text: 'Nur für Patienten in Behandlung' },
+  { id: 'jugendliche', label: 'Für Jugendliche', text: 'Du willst dich selbst melden' },
+  { id: 'download', label: 'Unterlagen', text: 'Fragebögen und Vertrag' },
+  { id: 'anfahrt', label: 'Anfahrt', text: 'Auto, Bus und Bahn' },
+];
+---
+<BaseLayout
+  title="Kontakt und Anmeldung | Kinder- und Jugendpsychiater Regensburg"
+  description="Kontakt zur Praxis für Kinder- und Jugendpsychiatrie in Regensburg: Erstanmeldung, Termin zur Erstsichtung, Rezeptvorbestellung und Unterlagen. Tel. 0941 640 82 80"
+>
+  <section class="container-page pt-10 sm:pt-14">
+    <Breadcrumbs items={[{ label: 'Start', href: '/' }, { label: 'Kontakt' }]} />
+    <div class="mt-6 grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-start">
+      <div>
+        <p class="eyebrow">Kontakt</p>
+        <h1 class="mt-3 text-4xl sm:text-5xl">Kontakt und Anmeldung</h1>
+        <p class="mt-5 max-w-xl text-lg text-muted">
+          Schön, dass Sie den ersten Schritt gehen. Am schnellsten erreichen Sie uns telefonisch zu unseren
+          Telefonzeiten. Für eine Erstanmeldung können Sie auch unser Formular nutzen, wir melden uns dann bei Ihnen.
+        </p>
+        <div class="mt-8 rounded-[var(--radius-card)] border-2 border-orange/60 bg-cream p-6" role="note">
+          <p class="font-bold">In einer akuten Krise?</p>
+          <p class="mt-2 text-sm">
+            Unsere Formulare ersetzen keine Notfallversorgung. Bei akuter Gefahr wählen Sie bitte den Notruf
+            <a href="tel:112" class="font-bold">112</a>, außerhalb der Sprechzeiten den ärztlichen Bereitschaftsdienst
+            <a href="tel:116117" class="font-bold">116 117</a>. Kinder und Jugendliche erreichen die Nummer gegen Kummer unter
+            <a href="tel:116111" class="font-bold">116 111</a>.
+          </p>
+        </div>
+      </div>
+      <ContactCard headingLevel="h2" />
+    </div>
+  </section>
+
+  <!-- Anliegen-Navigation, funktioniert ohne JavaScript über Anker -->
+  <nav aria-label="Anliegen wählen" class="container-page mt-16">
+    <h2 class="text-2xl sm:text-3xl">Worum geht es?</h2>
+    <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {topics.map((t) => (
+        <li>
+          <a href={`#${t.id}`} class="flex h-full flex-col rounded-2xl border border-line bg-surface px-5 py-4 text-ink no-underline transition hover:-translate-y-0.5 hover:border-orange hover:shadow-md">
+            <span class="font-bold">{t.label}</span>
+            <span class="text-sm text-muted">{t.text}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <div class="container-page mt-16 space-y-20">
+    <!-- Erstanmeldung -->
+    <section id="anmeldung" aria-labelledby="h-anmeldung" class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="eyebrow">Neu bei uns</p>
+        <h2 id="h-anmeldung" class="mt-3 text-3xl">Erstanmeldung</h2>
+        <div class="prose-kjp mt-4 text-muted">
+          <p>Ihr Kind war noch nicht bei uns in Behandlung? Dann schicken Sie uns gern eine kurze Anfrage. Wir melden uns, um alles Weitere mit Ihnen abzustimmen.</p>
+          <ul>
+            <li>Name und Geburtsdatum Ihres Kindes</li>
+            <li>Ihre Telefonnummer und wann Sie gut erreichbar sind</li>
+            <li>In ein, zwei Sätzen, worum es geht</li>
+          </ul>
+          <p class="text-sm">Bitte schreiben Sie keine ausführlichen Befunde oder Diagnosen ins Formular. Das besprechen wir persönlich.</p>
+        </div>
+      </div>
+      <GhlEmbed type="form" id={site.ghl.formAnmeldung} title="Kontaktformular zur Erstanmeldung" />
+    </section>
+
+    <!-- Erstsichtung -->
+    <section id="erstsichtung" aria-labelledby="h-erstsichtung" class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="eyebrow">Online buchen</p>
+        <h2 id="h-erstsichtung" class="mt-3 text-3xl">Termin zur Erstsichtung</h2>
+        <p class="mt-4 text-muted">Wählen Sie im Kalender einen freien Termin für die Erstsichtung. Sie erhalten anschließend eine Bestätigung per E-Mail.</p>
+      </div>
+      <GhlEmbed type="booking" id={site.ghl.booking} title="Online-Terminbuchung zur Erstsichtung" />
+    </section>
+
+    <!-- Rezept -->
+    <section id="rezept" aria-labelledby="h-rezept" class="card grid gap-6 bg-surface-alt lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="eyebrow">Für Patienten in Behandlung</p>
+        <h2 id="h-rezept" class="mt-3 text-3xl">Rezept vorbestellen</h2>
+      </div>
+      <div class="prose-kjp">
+        <p>Vorbestellen können Sie nur Wiederholungsrezepte für Medikamente, die wir als Dauertherapie verordnet haben. Voraussetzung ist, dass wir Sie und Ihr Kind regelmäßig in unserer Sprechstunde sehen.</p>
+        <p>Ergotherapie- und Logopädierezepte sind nur im Rahmen einer von uns eingeleiteten Mitbehandlung möglich. Alle Rezepte werden ärztlich geprüft. Bitte bringen Sie zur Abholung die Versichertenkarte mit.</p>
+        <p><strong>So bestellen Sie:</strong> telefonisch unter <a href={site.phone.href}>{site.phone.display}</a> ({site.phoneHours}) oder per E-Mail an <a href={`mailto:${site.email}?subject=Rezeptvorbestellung`}>{site.email}</a> mit Name, Geburtsdatum und Medikament.</p>
+      </div>
+    </section>
+
+    <!-- Jugendliche -->
+    <section id="jugendliche" aria-labelledby="h-jugendliche" class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="eyebrow">Für Jugendliche</p>
+        <h2 id="h-jugendliche" class="mt-3 text-3xl">Lass uns mal reden</h2>
+        <div class="prose-kjp mt-4 text-muted">
+          <p>Vielleicht fühlst du dich oft gestresst, traurig, wütend oder einfach überfordert. Bei uns kannst du dich melden, ohne Druck und ohne Erwartungen. Du entscheidest selbst, was du erzählen willst und wie viel.</p>
+          <p>Damit wir dir antworten können, brauchen wir deinen richtigen Namen und deine Kontaktdaten. Wenn du unter 18 bist, brauchen wir für weitere Gespräche in der Regel das Einverständnis deiner Eltern. Für deine erste Anfrage noch nicht.</p>
+          <p>Bitte schick uns keine medizinischen Unterlagen oder Fotos. Schreib nur kurz, worum es geht.</p>
+        </div>
+        <p class="mt-6 rounded-2xl bg-surface-alt p-4 text-sm"><strong>Hinweis für Eltern:</strong> Dieser Bereich richtet sich an Jugendliche, die selbst Kontakt aufnehmen möchten. Für reguläre Ersttermine nutzen Sie bitte die <a href="#anmeldung">Erstanmeldung</a>.</p>
+      </div>
+      <GhlEmbed type="form" id={site.ghl.formJugendliche} title="Kontaktformular für Jugendliche" />
+    </section>
+
+    <!-- Downloads -->
+    <section id="download" aria-labelledby="h-download">
+      <p class="eyebrow">Unterlagen</p>
+      <h2 id="h-download" class="mt-3 text-3xl">Unterlagen zum Ersttermin</h2>
+      <p class="mt-4 max-w-2xl text-muted">Bitte bringen Sie die ausgefüllten Fragebögen und den unterschriebenen Behandlungsvertrag zum ersten Termin mit.</p>
+      <ul class="mt-8 grid gap-4 sm:grid-cols-3">
+        {site.downloads.map((d) => (
+          <li>
+            <a href={d.href} target="_blank" rel="noopener" class="flex items-center gap-4 rounded-2xl border border-line bg-surface p-5 text-ink no-underline transition hover:border-orange hover:shadow-md">
+              <span class="grid size-12 shrink-0 place-items-center rounded-xl bg-cream text-xs font-bold text-orange-deep" aria-hidden="true">PDF</span>
+              <span><span class="block font-bold">{d.label}</span><span class="text-sm text-muted">PDF, {d.size}</span></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Anfahrt -->
+    <section id="anfahrt" aria-labelledby="h-anfahrt">
+      <p class="eyebrow">Anfahrt</p>
+      <h2 id="h-anfahrt" class="mt-3 text-3xl">Ihr Weg zu unserer Praxis</h2>
+      <p class="mt-4 text-muted">{site.address.street}, {site.address.zip} {site.address.city} · <a href={site.mapsUrl} target="_blank" rel="noopener">Route in Google Maps öffnen</a></p>
+      <div class="mt-8 grid gap-5 md:grid-cols-3">
+        <article class="card">
+          <h3 class="text-xl">Mit Bus und Bahn</h3>
+          <p class="mt-3 text-muted">Von der Haltestelle Albertstraße bzw. vom Hauptbahnhof circa 5 Minuten zu Fuß: links in die Dr.-Martin-Luther-Straße, geradeaus bis zur zweiten Kreuzung, rechts in die Landshuter Straße. Das Haus liegt nach etwa 40 Metern links.</p>
+        </article>
+        <article class="card">
+          <h3 class="text-xl">Ausfahrt Königswiesen</h3>
+          <p class="mt-3 text-muted">Rechts Richtung Innenstadt (Kirchmeierstraße). Nach den Arcaden links über die Brücke, an der nächsten Ampel rechts in die Luitpoldstraße, links in die Roritzerstraße und links in die Landshuter Straße. Nach etwa 50 Metern rechts.</p>
+        </article>
+        <article class="card">
+          <h3 class="text-xl">Ausfahrt Burgweinting</h3>
+          <p class="mt-3 text-muted">Links Richtung Innenstadt, am Stobäusplatz links Richtung Zentrum einordnen und auf der Landshuter Straße bleiben. Nach etwa 150 Metern rechts.</p>
+        </article>
+      </div>
+      <p class="mt-6 rounded-2xl bg-surface-alt p-5 text-sm"><strong>Parken:</strong> im Hof oder auf dem Parkstreifen vor der Praxis. Alternativ in den Parkhäusern am Dachauplatz oder Castra Regina in Bahnhofsnähe.</p>
+    </section>
+  </div>
+</BaseLayout>

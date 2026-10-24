@@ -1,0 +1,230 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import CircleOrnament from '../components/CircleOrnament.astro';
+import LogoMark from '../components/LogoMark.astro';
+import ContactCard from '../components/ContactCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site } from '../data/site';
+
+// Bis die übrigen Seiten gebaut sind, zeigen Links auf die Altseite (vor Go-Live umstellen)
+const OLD = 'https://www.kinder-jugendpsychiater.org';
+
+const audiences = [
+  {
+    title: 'Für Eltern',
+    text: 'Ihr Kind wirkt unruhig, traurig, ängstlich oder kommt in der Schule nicht mehr mit? Wir nehmen uns Zeit, hören zu und klären gemeinsam mit Ihnen, was dahintersteckt.',
+    link: { label: 'Ersttermin anfragen', href: '/kontakt#anmeldung' },
+    tone: 'bg-cream',
+  },
+  {
+    title: 'Für Jugendliche',
+    text: 'Du musst da nicht alleine durch. Wenn du reden möchtest, kannst du dich auch selbst bei uns melden. Ohne Druck, vertraulich und unverbindlich.',
+    link: { label: 'Lass uns mal reden', href: '/kontakt#jugendliche' },
+    tone: 'bg-surface-alt',
+  },
+  {
+    title: 'Für Zuweisende',
+    text: 'Haus- und Kinderärzte, Schulen, Kindergärten und Beratungsstellen: Wir arbeiten eng mit Ihnen zusammen und stimmen Befunde und nächste Schritte ab.',
+    link: { label: 'Kontakt zur Praxis', href: '/kontakt' },
+    tone: 'bg-[#FFF9D6]',
+  },
+];
+
+const conditions = [
+  { label: 'ADHS / ADS', href: '/diagnose/adhs-ads' },
+  { label: 'Depression und emotionale Störungen', href: `${OLD}/diagnose/emotionale-stoerung` },
+  { label: 'Ängste', href: `${OLD}/diagnose/angststoerung` },
+  { label: 'Legasthenie und Dyskalkulie', href: `${OLD}/diagnose/legasthenie-dyskalkulie` },
+  { label: 'Psychosomatische Beschwerden', href: `${OLD}/diagnose` },
+  { label: 'Kopfschmerzen und Migräne', href: `${OLD}/diagnose/kopfschmerzen/migraene` },
+  { label: 'Borderline-Störung', href: `${OLD}/diagnose/borderline-stoerung` },
+  { label: 'Traumata und Belastungsstörungen', href: `${OLD}/diagnose/belastungsstoerung` },
+  { label: 'Einnässen und Einkoten', href: `${OLD}/diagnose/einnaessen-einkoten` },
+  { label: 'Störungen des Sozialverhaltens', href: `${OLD}/diagnose/stoerungen-des-sozialverhaltens` },
+];
+
+const therapies = [
+  { title: 'Einzeltherapie', text: 'Ein geschützter Raum, in dem Ihr Kind in seinem Tempo an seinen Themen arbeiten kann.', href: `${OLD}/therapie/einzeltherapie` },
+  { title: 'Gruppentherapie', text: 'Mit Gleichaltrigen soziale Fähigkeiten üben, Konzentration trainieren und Selbstvertrauen stärken.', href: `${OLD}/therapie/gruppentherapie` },
+  { title: 'Familientherapie', text: 'Gemeinsam auf das Familiensystem schauen und neue Wege im Miteinander finden.', href: `${OLD}/therapie/familientherapie` },
+  { title: 'Beratung', text: 'Orientierung für Eltern, Lehrkräfte und Bezugspersonen in schwierigen Situationen.', href: `${OLD}/therapie/beratung` },
+  { title: 'Elterngruppe', text: 'Austausch mit anderen Eltern und konkrete Strategien für den Familienalltag.', href: `${OLD}/therapie/elterngruppe` },
+  { title: 'Ärztliche Behandlung', text: 'Fachärztliche Begleitung und, wenn nötig, eine sorgfältig kontrollierte Medikation.', href: `${OLD}/therapie/medikation` },
+];
+
+const steps = [
+  { title: 'Anmeldung', text: 'Sie melden Ihr Kind telefonisch oder über das Anmeldeformular an und erhalten die Unterlagen zum Ersttermin.' },
+  { title: 'Ersttermin', text: 'Wir lernen Ihr Kind und Ihre Familie kennen, erheben die Vorgeschichte und sichten Befunde von Schule, Kita oder anderen Ärzten.' },
+  { title: 'Diagnostik', text: 'Testdiagnostik, Verhaltensbeobachtung und körperliche Untersuchung. Anschließend besprechen wir die Ergebnisse im Team.' },
+  { title: 'Therapieplan', text: 'Im gemeinsamen Gespräch legen wir fest, welche Unterstützung passt. Sie erhalten einen schriftlichen Bericht.' },
+];
+
+const stories = [
+  { title: 'Lukas: Wenn Energie ihren Platz sucht', text: 'Ein lebendiger Junge lernt, seine Kraft zu lenken. Aus Unruhe wird Bewegung, aus Bewegung wächst Richtung.', href: `${OLD}/fallbeispiele/lukas-wenn-energie-ihren-platz-sucht` },
+  { title: 'Sophie: Mut zur Trennung', text: 'Ein sensibles Mädchen entdeckt Schritt für Schritt die Freiheit jenseits der Angst.', href: `${OLD}/fallbeispiele/sophie-mut-zur-trennung` },
+  { title: 'Lara: Buchstaben und Mut', text: 'Ein kluges Mädchen kämpft sich mit Geduld und Humor durch die Welt der Wörter.', href: `${OLD}/fallbeispiele/lara-buchstaben-und-mut` },
+];
+---
+<BaseLayout
+  title="Kinder- und Jugendpsychiater Regensburg | Praxis Estrada Aguila & Dr. Islinger"
+  description="Fachärzte für Kinder- und Jugendpsychiatrie und Psychotherapie in Regensburg. Diagnostik, Therapie und Beratung für Kinder, Jugendliche und Familien. Tel. 0941 640 82 80"
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="container-page grid items-center gap-12 pb-16 pt-12 sm:pt-16 lg:grid-cols-[1.15fr_0.85fr] lg:pb-24 lg:pt-20">
+      <div>
+        <p class="eyebrow">Sozialpsychiatrische Praxis seit {site.since}</p>
+        <h1 class="mt-4 text-4xl sm:text-5xl lg:text-6xl">Kinder- und Jugend&shy;psychiatrie in Regensburg</h1>
+        <p class="mt-5 font-display text-xl italic text-orange-deep sm:text-2xl">Willkommen auf dem Weg der Begegnung.</p>
+        <p class="mt-5 max-w-xl text-lg text-muted">
+          Wir begleiten Kinder, Jugendliche und ihre Familien mit Diagnostik, Therapie und Beratung. Ärztinnen und Ärzte,
+          Psychologinnen, Pädagogen und Therapeutinnen arbeiten bei uns Hand in Hand. Veränderung beginnt dort, wo sich
+          Menschen wirklich sehen.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href="/kontakt#anmeldung">Ersttermin anfragen</Button>
+          <Button href={site.phone.href} variant="secondary">
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" /></svg>
+            {site.phone.display}
+          </Button>
+        </div>
+        <p class="mt-6 text-sm text-muted">{site.name} · ehemals {site.formerName}</p>
+      </div>
+      <div class="relative mx-auto aspect-square w-full max-w-sm sm:max-w-md">
+        <CircleOrnament class="absolute inset-0 size-full" />
+        <div class="absolute inset-[30%] grid place-items-center">
+          <LogoMark class="size-full drop-shadow-md" />
+        </div>
+        <div class="absolute -bottom-2 left-0 rounded-2xl border border-line bg-surface px-4 py-3 text-sm shadow-lg sm:-left-6">
+          <p class="font-bold">Telefonisch erreichbar</p>
+          <p class="text-muted">Mo bis Fr, 9 bis 12 Uhr</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zielgruppen -->
+  <section class="container-page" aria-labelledby="zielgruppen">
+    <h2 id="zielgruppen" class="sr-only">Für wen wir da sind</h2>
+    <div class="grid gap-5 md:grid-cols-3">
+      {audiences.map((a) => (
+        <article class:list={['flex flex-col rounded-[var(--radius-card)] p-7', a.tone]}>
+          <h3 class="text-2xl">{a.title}</h3>
+          <p class="mt-3 flex-1 text-muted">{a.text}</p>
+          <a href={a.link.href} class="mt-5 font-bold">{a.link.label} →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Krankheitsbilder -->
+  <section class="container-page mt-24" aria-labelledby="krankheitsbilder">
+    <div class="max-w-2xl">
+      <p class="eyebrow">Diagnose</p>
+      <h2 id="krankheitsbilder" class="mt-3 text-3xl sm:text-4xl">Wobei wir helfen</h2>
+      <p class="mt-4 text-muted">Jedes Kind erzählt seine eigene Geschichte, manchmal laut, manchmal leise. Diese Themen begegnen uns im Praxisalltag besonders häufig.</p>
+    </div>
+    <ul class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {conditions.map((c, i) => (
+        <li>
+          <a href={c.href} class:list={['group flex items-center justify-between gap-4 rounded-2xl border px-5 py-4 font-semibold text-ink no-underline transition hover:-translate-y-0.5 hover:shadow-md', i === 0 ? 'border-orange bg-cream' : 'border-line bg-surface']}>
+            {c.label}
+            <span class="grid size-8 shrink-0 place-items-center rounded-full bg-amber/30 text-orange-deep transition group-hover:bg-orange group-hover:text-ink" aria-hidden="true">→</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Therapie -->
+  <section class="mt-24 bg-surface-alt py-20" aria-labelledby="therapie">
+    <div class="container-page">
+      <div class="max-w-2xl">
+        <p class="eyebrow">Therapie</p>
+        <h2 id="therapie" class="mt-3 text-3xl sm:text-4xl">Therapiemöglichkeiten für Kinder und Jugendliche</h2>
+        <p class="mt-4 text-muted">Körper und Seele sind eine Einheit. Deshalb verbinden wir ärztliche, psychologische und pädagogische Angebote zu einem Plan, der zu Ihrem Kind passt.</p>
+      </div>
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {therapies.map((t, i) => (
+          <article class="card relative overflow-hidden">
+            <span class="absolute -right-6 -top-6 size-20 rounded-full opacity-60" style={`background:${['#F07F12', '#FCC016', '#F5E925', '#ACC90B'][i % 4]}`} aria-hidden="true"></span>
+            <h3 class="relative text-xl">{t.title}</h3>
+            <p class="mt-3 text-muted">{t.text}</p>
+            <a href={t.href} class="mt-4 inline-block text-sm font-bold">Mehr erfahren<span class="sr-only"> über {t.title}</span> →</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Ablauf -->
+  <section class="container-page mt-24" aria-labelledby="ablauf">
+    <div class="max-w-2xl">
+      <p class="eyebrow">Ablauf</p>
+      <h2 id="ablauf" class="mt-3 text-3xl sm:text-4xl">So läuft es bei uns ab</h2>
+    </div>
+    <ol class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      {steps.map((s, i) => (
+        <li class="card">
+          <span class="grid size-12 place-items-center rounded-full bg-orange font-display text-xl font-bold text-ink" aria-hidden="true">{i + 1}</span>
+          <h3 class="mt-5 text-xl">{s.title}</h3>
+          <p class="mt-2 text-muted">{s.text}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="mt-8"><a href="/kontakt#download" class="font-bold">Unterlagen zum Ersttermin herunterladen →</a></p>
+  </section>
+
+  <!-- Kompetenz -->
+  <section class="container-page mt-24" aria-labelledby="kompetenz">
+    <div class="grid items-center gap-12 rounded-[2rem] bg-cream p-8 sm:p-12 lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="eyebrow">Unser Team</p>
+        <h2 id="kompetenz" class="mt-3 text-3xl sm:text-4xl">Kompetenz im Miteinander</h2>
+        <p class="mt-6 text-muted">Seit</p>
+        <p class="font-display text-6xl font-semibold text-orange-deep">{site.since}</p>
+        <p class="text-muted">arbeiten bei uns Berufsgruppen Hand in Hand</p>
+      </div>
+      <div class="prose-kjp">
+        <p>
+          In unserer Praxis arbeiten Fachärztinnen und Fachärzte für Kinder- und Jugendpsychiatrie und Psychotherapie,
+          Psychologinnen und Psychologen, Pädagoginnen und Pädagogen sowie weitere therapeutische Berufsgruppen zusammen.
+          So entsteht ein sozialpsychiatrisches Zentrum, das Kinder, Jugendliche und Eltern umfassend begleitet.
+        </p>
+        <p>
+          Wir stehen in engem Austausch mit Haus- und Fachärzten, Ergo- und Physiotherapeuten, Schulen, Kindergärten,
+          Frühförderstellen, Erziehungsberatungsstellen und Selbsthilfegruppen. Das Wohl des Kindes und das Recht auf
+          informierte Selbstbestimmung sind dabei immer die Grundlage unseres Handelns.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aus der Praxis -->
+  <section class="container-page mt-24" aria-labelledby="praxis">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div class="max-w-2xl">
+        <p class="eyebrow">Aus der Praxis</p>
+        <h2 id="praxis" class="mt-3 text-3xl sm:text-4xl">Geschichten von Entwicklung und Wandel</h2>
+        <p class="mt-4 text-muted">Einblicke in die psychotherapeutische Arbeit. Namen und Details sind verändert, die Geschichten stehen für typische Erfahrungen vieler Familien.</p>
+      </div>
+    </div>
+    <div class="mt-10 grid gap-5 md:grid-cols-3">
+      {stories.map((s) => (
+        <article class="card flex flex-col">
+          <h3 class="text-xl">{s.title}</h3>
+          <p class="mt-3 flex-1 text-muted">{s.text}</p>
+          <a href={s.href} class="mt-5 text-sm font-bold">Geschichte lesen<span class="sr-only">: {s.title}</span> →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <CtaBand />
+
+  <section class="container-page" aria-labelledby="kontakt-start">
+    <h2 id="kontakt-start" class="text-3xl sm:text-4xl">Praxis in Regensburg</h2>
+    <ContactCard class="mt-8" />
+  </section>
+</BaseLayout>
